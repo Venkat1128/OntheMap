@@ -23,7 +23,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="cDy-JR-g7X">
-                                <rect key="frame" x="16" y="70" width="343" height="572"/>
+                                <rect key="frame" x="16" y="85" width="343" height="557"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Udacity_logo" translatesAutoresizingMaskIntoConstraints="NO" id="QWH-Tc-HU0">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="100"/>
@@ -76,22 +76,20 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QL0-xm-eRQ">
-                                        <rect key="frame" x="0.0" y="344" width="343" height="40"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Eoc-dX-uU5">
+                                        <rect key="frame" x="0.0" y="344" width="343" height="163"/>
+                                        <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QL0-xm-eRQ">
+                                        <rect key="frame" x="0.0" y="517" width="343" height="40"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="Xcc-xX-ckL"/>
+                                            <constraint firstAttribute="height" constant="40" id="sbS-tp-JWo"/>
                                         </constraints>
                                         <state key="normal" title="Log in with facebook">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                     </button>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.94999999999999996" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="bsn-C1-ryA">
-                                        <rect key="frame" x="0.0" y="394" width="343" height="178"/>
-                                        <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                    </textView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="V7W-zE-Uhw" firstAttribute="height" secondItem="KyD-HY-D8V" secondAttribute="height" id="rZY-7l-7tz"/>
@@ -101,7 +99,7 @@
                         <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="cDy-JR-g7X" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="8Pj-4O-FMJ"/>
-                            <constraint firstItem="cDy-JR-g7X" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="50" id="gnc-0K-htD"/>
+                            <constraint firstItem="cDy-JR-g7X" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="65" id="gnc-0K-htD"/>
                             <constraint firstAttribute="bottomMargin" secondItem="cDy-JR-g7X" secondAttribute="bottom" constant="25" id="mfq-29-KMg"/>
                             <constraint firstItem="cDy-JR-g7X" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="mvN-3U-DDB"/>
                         </constraints>
