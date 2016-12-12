@@ -97,11 +97,10 @@
 		827C64C61DFEB5A400038A97 /* OntheMap */ = {
 			isa = PBXGroup;
 			children = (
+				82F3024D1DFEBA1500CEC55F /* Assets */,
+				82F3024C1DFEB9F600CEC55F /* View Controllers */,
 				827C64C71DFEB5A400038A97 /* AppDelegate.swift */,
 				827C64C91DFEB5A400038A97 /* ViewController.swift */,
-				827C64CB1DFEB5A400038A97 /* Main.storyboard */,
-				827C64CE1DFEB5A400038A97 /* Assets.xcassets */,
-				827C64D01DFEB5A400038A97 /* LaunchScreen.storyboard */,
 				827C64D31DFEB5A400038A97 /* Info.plist */,
 			);
 			path = OntheMap;
@@ -123,6 +122,23 @@
 				827C64E91DFEB5A400038A97 /* Info.plist */,
 			);
 			path = OntheMapUITests;
+			sourceTree = "<group>";
+		};
+		82F3024C1DFEB9F600CEC55F /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		82F3024D1DFEBA1500CEC55F /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				827C64CB1DFEB5A400038A97 /* Main.storyboard */,
+				827C64CE1DFEB5A400038A97 /* Assets.xcassets */,
+				827C64D01DFEB5A400038A97 /* LaunchScreen.storyboard */,
+			);
+			name = Assets;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -516,6 +532,7 @@
 				827C64EE1DFEB5A400038A97 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		827C64EF1DFEB5A400038A97 /* Build configuration list for PBXNativeTarget "OntheMapTests" */ = {
 			isa = XCConfigurationList;
@@ -524,6 +541,7 @@
 				827C64F11DFEB5A400038A97 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		827C64F21DFEB5A400038A97 /* Build configuration list for PBXNativeTarget "OntheMapUITests" */ = {
 			isa = XCConfigurationList;
@@ -532,6 +550,7 @@
 				827C64F41DFEB5A400038A97 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
