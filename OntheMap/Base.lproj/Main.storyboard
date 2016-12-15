@@ -69,7 +69,7 @@
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YVD-x5-tP7">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YVD-x5-tP7" customClass="BorderedButton" customModule="OntheMap" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="292.5" width="231" height="30"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="0.84439212328767121" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -92,7 +92,11 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="faceBookButton" destination="YVD-x5-tP7" id="Qzu-cZ-9UG"/>
+                        <outlet property="loginButton" destination="g7Z-by-zfo" id="ajv-Cm-SHF"/>
                         <outlet property="passwordTextField" destination="6Yh-Co-We2" id="ewk-s9-49g"/>
+                        <outlet property="signUpButton" destination="mXU-4N-9qG" id="vPA-KZ-KQS"/>
+                        <outlet property="udacityLogoImageView" destination="eWf-tt-Fvy" id="f4R-sx-iK4"/>
                         <outlet property="usernameTextField" destination="DXr-Ok-0gn" id="h7S-Hq-Wei"/>
                     </connections>
                 </viewController>
