@@ -48,7 +48,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g7Z-by-zfo">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g7Z-by-zfo" customClass="BorderedButton" customModule="OntheMap" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="202.5" width="231" height="30"/>
                                         <color key="backgroundColor" red="1" green="0.24601020585390021" blue="0.098235876151878676" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -91,6 +91,10 @@
                             <constraint firstItem="be8-JG-d0h" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ITn-KG-dXS"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="passwordTextField" destination="6Yh-Co-We2" id="ewk-s9-49g"/>
+                        <outlet property="usernameTextField" destination="DXr-Ok-0gn" id="h7S-Hq-Wei"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

@@ -7,9 +7,18 @@
 //
 
 import UIKit
-
+// MARK: - LoginViewController: UIViewController
 class LoginViewController: UIViewController {
-
+    // MARK: Properties
+    
+    var appDelegate: AppDelegate!
+    var keyboardOnScreen = false
+    
+    // MARK: Outlets
+    
+    @IBOutlet weak var usernameTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var loginButton: BorderedButton!
     override func viewDidLoad() {
         super.viewDidLoad()
 
