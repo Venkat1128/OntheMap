@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		827C64C81DFEB5A400038A97 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827C64C71DFEB5A400038A97 /* AppDelegate.swift */; };
-		827C64CA1DFEB5A400038A97 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827C64C91DFEB5A400038A97 /* ViewController.swift */; };
 		827C64CD1DFEB5A400038A97 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 827C64CB1DFEB5A400038A97 /* Main.storyboard */; };
 		827C64CF1DFEB5A400038A97 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 827C64CE1DFEB5A400038A97 /* Assets.xcassets */; };
 		827C64D21DFEB5A400038A97 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 827C64D01DFEB5A400038A97 /* LaunchScreen.storyboard */; };
@@ -18,6 +17,9 @@
 		82D6E8371E01F01300724CB3 /* UdacityClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D6E8361E01F01300724CB3 /* UdacityClient.swift */; };
 		82D6E83A1E01F71400724CB3 /* BorderedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D6E8391E01F71400724CB3 /* BorderedButton.swift */; };
 		82D6E83C1E046DA700724CB3 /* GCDBlackBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D6E83B1E046DA700724CB3 /* GCDBlackBox.swift */; };
+		82D6E83E1E049E2A00724CB3 /* StudentMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D6E83D1E049E2A00724CB3 /* StudentMapViewController.swift */; };
+		82D6E8401E049E4700724CB3 /* StudentListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D6E83F1E049E4700724CB3 /* StudentListTableViewController.swift */; };
+		82D6E8431E04A0C100724CB3 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82D6E8421E04A0C100724CB3 /* MapKit.framework */; };
 		82F3024F1DFEF6D500CEC55F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F3024E1DFEF6D500CEC55F /* LoginViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -41,7 +43,6 @@
 /* Begin PBXFileReference section */
 		827C64C41DFEB5A400038A97 /* OntheMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OntheMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		827C64C71DFEB5A400038A97 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		827C64C91DFEB5A400038A97 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		827C64CC1DFEB5A400038A97 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		827C64CE1DFEB5A400038A97 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		827C64D11DFEB5A400038A97 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -56,6 +57,9 @@
 		82D6E8361E01F01300724CB3 /* UdacityClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdacityClient.swift; sourceTree = "<group>"; };
 		82D6E8391E01F71400724CB3 /* BorderedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderedButton.swift; sourceTree = "<group>"; };
 		82D6E83B1E046DA700724CB3 /* GCDBlackBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GCDBlackBox.swift; sourceTree = "<group>"; };
+		82D6E83D1E049E2A00724CB3 /* StudentMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentMapViewController.swift; sourceTree = "<group>"; };
+		82D6E83F1E049E4700724CB3 /* StudentListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentListTableViewController.swift; sourceTree = "<group>"; };
+		82D6E8421E04A0C100724CB3 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		82F3024E1DFEF6D500CEC55F /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -64,6 +68,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82D6E8431E04A0C100724CB3 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,6 +96,7 @@
 				827C64DB1DFEB5A400038A97 /* OntheMapTests */,
 				827C64E61DFEB5A400038A97 /* OntheMapUITests */,
 				827C64C51DFEB5A400038A97 /* Products */,
+				82D6E8411E04A0C100724CB3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -113,7 +119,6 @@
 				82F3024C1DFEB9F600CEC55F /* View Controllers */,
 				827C64C71DFEB5A400038A97 /* AppDelegate.swift */,
 				82D6E83B1E046DA700724CB3 /* GCDBlackBox.swift */,
-				827C64C91DFEB5A400038A97 /* ViewController.swift */,
 				827C64D31DFEB5A400038A97 /* Info.plist */,
 			);
 			path = OntheMap;
@@ -170,10 +175,20 @@
 			name = View;
 			sourceTree = "<group>";
 		};
+		82D6E8411E04A0C100724CB3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				82D6E8421E04A0C100724CB3 /* MapKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		82F3024C1DFEB9F600CEC55F /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				82F3024E1DFEF6D500CEC55F /* LoginViewController.swift */,
+				82D6E83D1E049E2A00724CB3 /* StudentMapViewController.swift */,
+				82D6E83F1E049E4700724CB3 /* StudentListTableViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -258,6 +273,11 @@
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = TZBNJQ93D6;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					827C64D71DFEB5A400038A97 = {
 						CreatedOnToolsVersion = 8.1;
@@ -326,12 +346,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				82D6E83C1E046DA700724CB3 /* GCDBlackBox.swift in Sources */,
+				82D6E8401E049E4700724CB3 /* StudentListTableViewController.swift in Sources */,
 				82F3024F1DFEF6D500CEC55F /* LoginViewController.swift in Sources */,
 				82D6E8371E01F01300724CB3 /* UdacityClient.swift in Sources */,
 				82D6E8331E016A4400724CB3 /* UdacityConstants.swift in Sources */,
-				827C64CA1DFEB5A400038A97 /* ViewController.swift in Sources */,
 				827C64C81DFEB5A400038A97 /* AppDelegate.swift in Sources */,
 				82D6E83A1E01F71400724CB3 /* BorderedButton.swift in Sources */,
+				82D6E83E1E049E2A00724CB3 /* StudentMapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

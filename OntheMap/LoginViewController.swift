@@ -76,6 +76,7 @@ class LoginViewController: UIViewController {
                     
                     self.appDelegate.sessionID = sessionID
                     self.appDelegate.udacityUserId = userId
+                    self.completeLogin()
                 }
             }else{
                 self.showAlertMessage(UdacityClient.UdacityConstans.ErrorMessages.NetworkErrorTitle, UdacityClient.UdacityConstans.ErrorMessages.NetworkErrorMsg)
@@ -96,7 +97,7 @@ class LoginViewController: UIViewController {
     private func completeLogin() {
         performUIUpdatesOnMain {
             self.setUIEnabled(true)
-            let controller = self.storyboard!.instantiateViewController(withIdentifier: "MoviesTabBarController") as! UITabBarController
+            let controller = self.storyboard!.instantiateViewController(withIdentifier: "StudentLocationTabBarController") as! UITabBarController
             self.present(controller, animated: true, completion: nil)
         }
     }
