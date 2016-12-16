@@ -48,49 +48,58 @@ class LoginViewController: UIViewController {
         
         userDidTapView(self)
         if usernameTextField.text!.isEmpty || passwordTextField.text!.isEmpty {
-            //debugTextLabel.text = "Username or Password Empty."
-        } else {
-            setUIEnabled(false)
-            
-            let jsonBody = "{\"udacity\": {\"\(UdacityClient.UdacityConstans.UdacityParameterKeys.Username)\": \"\(usernameTextField.text!)\", \"\(UdacityClient.UdacityConstans.UdacityParameterKeys.Password)\": \"\(passwordTextField.text!)\"}}"
-            let _ =  UdacityClient.sharedInstance().taskForPOSTMethod(UdacityClient.UdacityConstans.UdacityResponseKeys.Session, jsonBody: jsonBody){
-                (results, error) in
-                print("test \(results)")
-                /* GUARD: Is the "sessionID" key in parsedResult? */
-                let sessionDict = results?[UdacityClient.UdacityConstans.UdacityResponseKeys.Session] as! Dictionary<String, Any>
-                let accountDict = results?[UdacityClient.UdacityConstans.UdacityResponseKeys.Account] as! Dictionary<String, Any>
-                guard let sessionID = sessionDict[UdacityClient.UdacityConstans.UdacityResponseKeys.Id] as? String else {
-                    //
-                    return
+            showAlertMessage(UdacityClient.UdacityConstans.ErrorMessages.LoginError, "Username or Password Empty.")
+        }else {
+            if(UdacityClient.sharedInstance().isConnectedToNetwork()) {
+                
+                setUIEnabled(false)
+                
+                let jsonBody = "{\"udacity\": {\"\(UdacityClient.UdacityConstans.UdacityParameterKeys.Username)\": \"\(usernameTextField.text!)\", \"\(UdacityClient.UdacityConstans.UdacityParameterKeys.Password)\": \"\(passwordTextField.text!)\"}}"
+                let _ =  UdacityClient.sharedInstance().taskForPOSTMethod(UdacityClient.UdacityConstans.UdacityResponseKeys.Session, jsonBody: jsonBody){
+                    (results, error) in
+                    /* GUARD: Was there an error? */
+                    guard (error == nil) else {
+                        self.showAlertMessage(UdacityClient.UdacityConstans.ErrorMessages.LoginError, "\(error!.userInfo[NSLocalizedDescriptionKey] as! String)")
+                        return
+                    }
+                    /* GUARD: Is the "sessionID" key in parsedResult? */
+                    let sessionDict = results?[UdacityClient.UdacityConstans.UdacityResponseKeys.Session] as! Dictionary<String, Any>
+                    let accountDict = results?[UdacityClient.UdacityConstans.UdacityResponseKeys.Account] as! Dictionary<String, Any>
+                    guard let sessionID = sessionDict[UdacityClient.UdacityConstans.UdacityResponseKeys.Id] as? String else {
+                        self.showAlertMessage(UdacityClient.UdacityConstans.ErrorMessages.LoginError, "Cannot find key '\(UdacityClient.UdacityConstans.UdacityResponseKeys.Id)' in \(sessionDict)")
+                        return
+                    }
+                    guard let userId = accountDict[UdacityClient.UdacityConstans.UdacityResponseKeys.UserId] as? String else {
+                        self.showAlertMessage(UdacityClient.UdacityConstans.ErrorMessages.LoginError, "Cannot find key '\(UdacityClient.UdacityConstans.UdacityResponseKeys.UserId)' in \(accountDict)")
+                        return
+                    }
+                    
+                    self.appDelegate.sessionID = sessionID
+                    self.appDelegate.udacityUserId = userId
                 }
-                guard let userId = accountDict[UdacityClient.UdacityConstans.UdacityResponseKeys.UserId] as? String else {
-                    //
-                    return
-                }
-
-                self.appDelegate.sessionID = sessionID
-                self.appDelegate.udacityUserId = userId
+            }else{
+                self.showAlertMessage(UdacityClient.UdacityConstans.ErrorMessages.NetworkErrorTitle, UdacityClient.UdacityConstans.ErrorMessages.NetworkErrorMsg)
             }
         }
         
-       
     }
+    //MARK:- Sign Up to Updacity
     @IBAction func signUpUdacity(_ sender: Any) {
         if let url = URL(string: UdacityClient.signUpURL) {
             UIApplication.shared.open(url, options: [:])
         }
     }
-    
+    //MARK:- Login with Facebook
     @IBAction func logininwithFacebook(_ sender: Any) {
     }
-    /* // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
+    //MARK:- Complete Login
+    private func completeLogin() {
+        performUIUpdatesOnMain {
+            self.setUIEnabled(true)
+            let controller = self.storyboard!.instantiateViewController(withIdentifier: "MoviesTabBarController") as! UITabBarController
+            self.present(controller, animated: true, completion: nil)
+        }
+    }
     
 }
 // MARK: - LoginViewController (Configure UI)
@@ -139,6 +148,13 @@ private extension LoginViewController {
         textField.attributedPlaceholder = NSAttributedString(string: textField.placeholder!, attributes: [NSForegroundColorAttributeName: UIColor.white])
         textField.tintColor = UdacityClient.UI.BlueColor
         textField.delegate = self
+    }
+    func showAlertMessage(_ title:String, _ message:String) {
+        let alertConroller = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alertConroller.addAction(UIAlertAction(title:"OK",style : .default){ action in
+            self.dismiss(animated: true, completion: nil)
+        })
+        self.present(alertConroller, animated: true, completion: nil)
     }
 }
 

@@ -30,6 +30,12 @@ extension UdacityClient{
             static let Account = "account"
             static let UserId = "key"
         }
+        //MARK:- Error Messages
+        struct ErrorMessages {
+            static let LoginError = "Login error"
+            static let NetworkErrorTitle = "Connection Error"
+            static let NetworkErrorMsg = "Network Not Reachbale!"
+        }
     }
     static let signUpURL = "https://www.udacity.com/account/auth#!/signup"
     // MARK: UI
