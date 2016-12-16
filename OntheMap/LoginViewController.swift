@@ -39,6 +39,10 @@ class LoginViewController: UIViewController {
         passwordTextField.isSecureTextEntry = true
         
     }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        unsubscribeFromAllNotifications()
+    }
     //MARK:- Login Pressed
     @IBAction func loginPressed(_ sender: Any) {
         
@@ -54,17 +58,27 @@ class LoginViewController: UIViewController {
                 print("test \(results)")
                 /* GUARD: Is the "sessionID" key in parsedResult? */
                 let sessionDict = results?[UdacityClient.UdacityConstans.UdacityResponseKeys.Session] as! Dictionary<String, Any>
+                let accountDict = results?[UdacityClient.UdacityConstans.UdacityResponseKeys.Account] as! Dictionary<String, Any>
                 guard let sessionID = sessionDict[UdacityClient.UdacityConstans.UdacityResponseKeys.Id] as? String else {
                     //
                     return
                 }
+                guard let userId = accountDict[UdacityClient.UdacityConstans.UdacityResponseKeys.UserId] as? String else {
+                    //
+                    return
+                }
+
                 self.appDelegate.sessionID = sessionID
+                self.appDelegate.udacityUserId = userId
             }
         }
         
        
     }
     @IBAction func signUpUdacity(_ sender: Any) {
+        if let url = URL(string: UdacityClient.signUpURL) {
+            UIApplication.shared.open(url, options: [:])
+        }
     }
     
     @IBAction func logininwithFacebook(_ sender: Any) {
@@ -120,7 +134,7 @@ private extension LoginViewController {
         let textFieldPaddingView = UIView(frame: textFieldPaddingViewFrame)
         textField.leftView = textFieldPaddingView
         textField.leftViewMode = .always
-        textField.backgroundColor = UdacityClient.UI.GreyColor
+        textField.backgroundColor = UdacityClient.UI.textFieldBgColor
         textField.textColor = UdacityClient.UI.BlueColor
         textField.attributedPlaceholder = NSAttributedString(string: textField.placeholder!, attributes: [NSForegroundColorAttributeName: UIColor.white])
         textField.tintColor = UdacityClient.UI.BlueColor
