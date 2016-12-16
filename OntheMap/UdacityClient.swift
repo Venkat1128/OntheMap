@@ -20,14 +20,12 @@ class UdacityClient: NSObject {
     
     // MARK: POST
     
-    func taskForPOSTMethod(_ method: String, parameters: [String:AnyObject], jsonBody: String, completionHandlerForPOST: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
+    func taskForPOSTMethod(_ method: String, jsonBody: String, completionHandlerForPOST: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
         
         /* 1. Set the parameters */
-        var parametersWithApiKey = parameters
-        //parametersWithApiKey[UdacityConstans.UdacityParameterKeys.Username] = Constants.ApiKey as AnyObject?
-        
+        // Paramters are passed as constand in method
         /* 2/3. Build the URL, Configure the request */
-        let request = NSMutableURLRequest(url: udacityURLFromParameters(parametersWithApiKey, withPathExtension: method))
+        let request = NSMutableURLRequest(url: udacityURLFromParameters(withPathExtension: method))
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -61,7 +59,13 @@ class UdacityClient: NSObject {
             }
             
             /* 5/6. Parse the data and use the data (happens in completion handler) */
-            self.convertDataWithCompletionHandler(data, completionHandlerForConvertData: completionHandlerForPOST)
+            if error != nil { // Handle error…
+                return
+            }
+            let range = Range(uncheckedBounds: (5, data.count - 0))
+            let newData = data.subdata(in: range) /* subset response data! */
+           print(NSString(data: newData, encoding: String.Encoding.utf8.rawValue)!)
+            self.convertDataWithCompletionHandler(newData, completionHandlerForConvertData: completionHandlerForPOST)
         }
         
         /* 7. Start the request */
@@ -97,18 +101,13 @@ class UdacityClient: NSObject {
     
     
     // create a URL from parameters
-    private func udacityURLFromParameters(_ parameters: [String:AnyObject], withPathExtension: String? = nil) -> URL {
+    private func udacityURLFromParameters(withPathExtension: String? = nil) -> URL {
         
         var components = URLComponents()
         components.scheme = UdacityConstans.Udacity.ApiScheme
         components.host = UdacityConstans.Udacity.ApiHost
-        components.path = UdacityConstans.Udacity.ApiPath + (withPathExtension ?? "")
+        components.path = UdacityConstans.Udacity.ApiPath + (withPathExtension)!
         components.queryItems = [URLQueryItem]()
-        
-        for (key, value) in parameters {
-            let queryItem = URLQueryItem(name: key, value: "\(value)")
-            components.queryItems!.append(queryItem)
-        }
         
         return components.url!
     }

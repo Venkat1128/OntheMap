@@ -58,6 +58,9 @@
                                         <state key="normal" title="Login">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="loginPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fpf-OA-H2l"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mXU-4N-9qG">
                                         <rect key="frame" x="0.0" y="247.5" width="231" height="30"/>
@@ -68,6 +71,9 @@
                                         <state key="normal" title="Don't have an account? SIgn Up">
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="signUpUdacity:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wPe-aT-DaT"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YVD-x5-tP7" customClass="BorderedButton" customModule="OntheMap" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="292.5" width="231" height="30"/>
@@ -79,6 +85,9 @@
                                         <state key="normal" title="Log in with facebook">
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="logininwithFacebook:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bGN-aq-2n2"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>

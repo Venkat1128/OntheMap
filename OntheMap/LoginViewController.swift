@@ -21,10 +21,10 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var loginButton: BorderedButton!
     @IBOutlet weak var signUpButton: UIButton!
     @IBOutlet weak var faceBookButton: BorderedButton!
-     @IBOutlet weak var udacityLogoImageView: UIImageView!
+    @IBOutlet weak var udacityLogoImageView: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        configureUI()
         // Do any additional setup after loading the view.
         loginButton.backgroundColor = UIColor(red: 226/255, green: 58/255, blue: 37/255, alpha:1.0)
         loginButton.highlightedBackingColor =  UIColor(red: 226/255, green: 58/255, blue: 37/255, alpha:1.0)
@@ -36,25 +36,48 @@ class LoginViewController: UIViewController {
         subscribeToNotification(.UIKeyboardWillHide, selector: #selector(keyboardWillHide))
         subscribeToNotification(.UIKeyboardDidShow, selector: #selector(keyboardDidShow))
         subscribeToNotification(.UIKeyboardDidHide, selector: #selector(keyboardDidHide))
+        passwordTextField.isSecureTextEntry = true
         
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    //MARK:- Login Pressed
+    @IBAction func loginPressed(_ sender: Any) {
+        
+        userDidTapView(self)
+        if usernameTextField.text!.isEmpty || passwordTextField.text!.isEmpty {
+            //debugTextLabel.text = "Username or Password Empty."
+        } else {
+            setUIEnabled(false)
+            
+            let jsonBody = "{\"udacity\": {\"\(UdacityClient.UdacityConstans.UdacityParameterKeys.Username)\": \"\(usernameTextField.text!)\", \"\(UdacityClient.UdacityConstans.UdacityParameterKeys.Password)\": \"\(passwordTextField.text!)\"}}"
+            let _ =  UdacityClient.sharedInstance().taskForPOSTMethod(UdacityClient.UdacityConstans.UdacityResponseKeys.Session, jsonBody: jsonBody){
+                (results, error) in
+                print("test \(results)")
+                /* GUARD: Is the "sessionID" key in parsedResult? */
+                let sessionDict = results?[UdacityClient.UdacityConstans.UdacityResponseKeys.Session] as! Dictionary<String, Any>
+                guard let sessionID = sessionDict[UdacityClient.UdacityConstans.UdacityResponseKeys.Id] as? String else {
+                    //
+                    return
+                }
+                self.appDelegate.sessionID = sessionID
+            }
+        }
+        
+       
+    }
+    @IBAction func signUpUdacity(_ sender: Any) {
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    @IBAction func logininwithFacebook(_ sender: Any) {
     }
-    */
-
+    /* // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }
 // MARK: - LoginViewController (Configure UI)
 
@@ -70,8 +93,12 @@ private extension LoginViewController {
         // adjust login button alpha
         if enabled {
             loginButton.alpha = 1.0
+            signUpButton.alpha = 1.0
+            faceBookButton.alpha = 1.0
         } else {
             loginButton.alpha = 0.5
+            signUpButton.alpha = 0.5
+            faceBookButton.alpha = 1.0
         }
     }
     

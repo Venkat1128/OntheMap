@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+
 extension UdacityClient{
     //MARK:- Constans
     struct UdacityConstans {
@@ -15,7 +16,7 @@ extension UdacityClient{
         struct Udacity {
             static let ApiScheme = "https"
             static let ApiHost = "www.udacity.com"
-            static let ApiPath = "/api/session"
+            static let ApiPath = "/api/"
         }
         //MARK:- Udacity Parameter Keys
         struct UdacityParameterKeys {
