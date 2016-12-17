@@ -10,17 +10,30 @@ import UIKit
 import MapKit
 class StudentMapViewController: UIViewController,MKMapViewDelegate {
 
+    // MARK: Properties
+    
+    var studentLocations: [StudentLocation] = [StudentLocation]()
+    
+    // MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        StudentLocationClient.sharedInstance().getStudentLocations{ (studentLocations, error) in
+            if let studentLocations = studentLocations {
+                self.studentLocations = studentLocations
+                performUIUpdatesOnMain {
+                   // self.moviesTableView.reloadData()
+                }
+            } else {
+                print(error)
+            }
+        }
     }
-    
 
     /*
     // MARK: - Navigation

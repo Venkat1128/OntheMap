@@ -18,8 +18,8 @@ extension StudentLocationClient{
         
         // MARK: URLs
         static let ApiScheme = "https"
-        static let ApiHost = "parse.udacity.com/parse/classes"
-        static let ApiPath = "/StudentLocation"
+        static let ApiHost = "parse.udacity.com"
+        static let ApiPath = "/parse/classes"
     }
     
     // MARK: Methods
@@ -29,6 +29,7 @@ extension StudentLocationClient{
         static let GET = "GET"
         static let PUT = "PUT"
         // MARK: Student Location
+        static let StudentLocation = "/StudentLocation"
         static let MultipleLocarions = "/limit"
         static let SingleLocation = "/uniqueKey"
         static let UpdateLocation = "/<objectId>"
@@ -38,13 +39,13 @@ extension StudentLocationClient{
     // MARK: URL Keys
     struct URLKeys {
         static let UserID = "id"
+        static let Limit = "limit"
     }
     
     // MARK: Parameter Keys
     struct ParameterKeys {
         static let ParseApplicationId = "X-Parse-Application-Id"
         static let ParseRESTAPIKey = "X-Parse-REST-API-Key"
-        static let Limit = "limit"
     }
     
     // MARK: JSON Body Keys
@@ -60,9 +61,12 @@ extension StudentLocationClient{
     
     // MARK: JSON Response Keys
     struct JSONResponseKeys {
-        
+        static let ObjectId = "objectId"
+        static let CreatedAt = "createdAt"
+        static let UpdatedAt = "updatedAt"
         // MARK: General
         static let StatusMessage = "status_message"
         static let StatusCode = "status_code"
+        static let StudentLocationsResults = "results"
     }
 }

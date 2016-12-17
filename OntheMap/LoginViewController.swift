@@ -59,6 +59,7 @@ class LoginViewController: UIViewController {
                     (results, error) in
                     /* GUARD: Was there an error? */
                     guard (error == nil) else {
+                        self.setUIEnabled(true)
                         self.showAlertMessage(UdacityClient.UdacityConstans.ErrorMessages.LoginError, "\(error!.userInfo[NSLocalizedDescriptionKey] as! String)")
                         return
                     }

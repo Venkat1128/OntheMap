@@ -27,11 +27,10 @@ class StudentLocationClient: NSObject {
         
         /* 1. Set the parameters */
         var parametersWithApiKey = parameters
-        parametersWithApiKey[ParameterKeys.ParseApplicationId] = Constants.ParseApplicationID as AnyObject?
-        parametersWithApiKey[ParameterKeys.ParseRESTAPIKey] = Constants.RestApiKey as AnyObject?
         /* 2/3. Build the URL, Configure the request */
         let request = NSMutableURLRequest(url: parseURLFromParameters(parametersWithApiKey, withPathExtension: method))
-        
+        request.addValue(Constants.ParseApplicationID, forHTTPHeaderField: ParameterKeys.ParseApplicationId)
+        request.addValue(Constants.RestApiKey, forHTTPHeaderField: ParameterKeys.ParseRESTAPIKey)
         /* 4. Make the request */
         let task = session.dataTask(with: request as URLRequest) { (data, response, error) in
             
@@ -60,6 +59,7 @@ class StudentLocationClient: NSObject {
             }
             
             /* 5/6. Parse the data and use the data (happens in completion handler) */
+            print(NSString(data: data, encoding: String.Encoding.utf8.rawValue)!)
             self.convertDataWithCompletionHandler(data, completionHandlerForConvertData: completionHandlerForGET)
         }
         
