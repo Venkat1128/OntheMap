@@ -47,13 +47,14 @@ class LoginViewController: UIViewController {
     @IBAction func loginPressed(_ sender: Any) {
         
         userDidTapView(self)
+        usernameTextField.text = "venky.1128@gmail.com"
+        passwordTextField.text = "Udacity@1128"
         if usernameTextField.text!.isEmpty || passwordTextField.text!.isEmpty {
             showAlertMessage(UdacityClient.UdacityConstans.ErrorMessages.LoginError, "Username or Password Empty.")
         }else {
             if(UdacityClient.sharedInstance().isConnectedToNetwork()) {
                 
                 setUIEnabled(false)
-                
                 let jsonBody = "{\"udacity\": {\"\(UdacityClient.UdacityConstans.UdacityParameterKeys.Username)\": \"\(usernameTextField.text!)\", \"\(UdacityClient.UdacityConstans.UdacityParameterKeys.Password)\": \"\(passwordTextField.text!)\"}}"
                 let _ =  UdacityClient.sharedInstance().taskForPOSTMethod(UdacityClient.UdacityConstans.UdacityResponseKeys.Session, jsonBody: jsonBody){
                     (results, error) in

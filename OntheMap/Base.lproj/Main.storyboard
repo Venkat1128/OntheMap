@@ -139,12 +139,27 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="On the Map" id="CAI-CE-8P9">
-                        <barButtonItem key="leftBarButtonItem" title="Logout" id="Fzg-tK-FOn"/>
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="Fzg-tK-FOn">
+                            <connections>
+                                <action selector="logoutAction:" destination="Mbd-42-dBY" id="Ie3-G5-fFD"/>
+                            </connections>
+                        </barButtonItem>
                         <rightBarButtonItems>
-                            <barButtonItem image="icon_refresh" id="7Lh-bM-3fF" userLabel="Refresh Item"/>
-                            <barButtonItem image="icon_pin" id="ZgZ-xQ-fhj" userLabel="Map Item"/>
+                            <barButtonItem image="icon_refresh" id="7Lh-bM-3fF" userLabel="Refresh Item">
+                                <connections>
+                                    <action selector="refreshStudentLocation:" destination="Mbd-42-dBY" id="GJz-FA-E1d"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem image="icon_pin" id="ZgZ-xQ-fhj" userLabel="Map Item">
+                                <connections>
+                                    <action selector="postLocation:" destination="Mbd-42-dBY" id="Rg0-FT-IXR"/>
+                                </connections>
+                            </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
+                    <connections>
+                        <outlet property="mapView" destination="5pI-Ym-NiK" id="stR-QX-wvV"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8b9-w1-Ah1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -215,11 +230,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="5N6-IS-HGd">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="studentLocation" id="5N6-IS-HGd">
                                 <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5N6-IS-HGd" id="wMw-zy-I5a">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
