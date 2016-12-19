@@ -69,4 +69,9 @@ extension StudentLocationClient{
         static let StatusCode = "status_code"
         static let StudentLocationsResults = "results"
     }
+    //MARK:- Images
+    struct NavIcons {
+        static let MAP_ICON = "icon_pin"
+        static let REFRESH_ICON = "icon_refresh"
+    }
 }

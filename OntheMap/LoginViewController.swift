@@ -99,7 +99,7 @@ class LoginViewController: UIViewController {
     private func completeLogin() {
         performUIUpdatesOnMain {
             self.setUIEnabled(true)
-            let controller = self.storyboard!.instantiateViewController(withIdentifier: "StudentLocationTabBarController") as! UITabBarController
+            let controller = self.storyboard!.instantiateViewController(withIdentifier: "LocationNavigationController") as! UINavigationController
             self.present(controller, animated: true, completion: nil)
         }
     }

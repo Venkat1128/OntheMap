@@ -20,6 +20,13 @@ class StudentMapViewController: UIViewController, MKMapViewDelegate {
     // MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+         parent!.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(logout))
+        let mapImage   = UIImage(named: StudentLocationClient.NavIcons.MAP_ICON)!
+        let refreshImage = UIImage(named: StudentLocationClient.NavIcons.REFRESH_ICON)!
+        let mapButton   = UIBarButtonItem(image: mapImage,  style: .plain, target: self, action: #selector(StudentMapViewController.postLocation(_:)))
+        let refreshButton = UIBarButtonItem(image: refreshImage,  style: .plain, target: self, action: #selector(StudentMapViewController.refreshStudentLocation(_:)))
+        
+        parent!.navigationItem.rightBarButtonItems = [mapButton, refreshButton]
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -71,7 +78,7 @@ class StudentMapViewController: UIViewController, MKMapViewDelegate {
                 let annotation = MKPointAnnotation()
                 annotation.coordinate = coordinate
                 if studentLocation.firstName != nil && studentLocation.lastName != nil && studentLocation.mediaURL != nil  {
-                    annotation.title = "\(studentLocation.firstName) \(studentLocation.lastName)"
+                    annotation.title = "\(studentLocation.firstName!) \(studentLocation.lastName!)"
                     annotation.subtitle = studentLocation.mediaURL
                 }
                 // Finally we place the annotation in an array of annotations.
@@ -118,13 +125,15 @@ class StudentMapViewController: UIViewController, MKMapViewDelegate {
             }
         }
     }
-    @IBAction func logoutAction(_ sender: Any) {
-        
+    func logout() {
+        print("Logout")
     }
-    @IBAction func refreshStudentLocation(_ sender: Any) {
+    func refreshStudentLocation(_ sender: Any) {
         self.getStudentLocations()
+        print("Refresh")
     }
-    @IBAction func postLocation(_ sender: Any) {
+    func postLocation(_ sender: Any) {
+        print("Map")
     }
   
 }

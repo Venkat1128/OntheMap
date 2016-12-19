@@ -15,19 +15,21 @@ class StudentListTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
+        parent!.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(logout))
+        let mapImage   = UIImage(named: StudentLocationClient.NavIcons.MAP_ICON)!
+        let refreshImage = UIImage(named: StudentLocationClient.NavIcons.REFRESH_ICON)!
+        let mapButton   = UIBarButtonItem(image: mapImage,  style: .plain, target: self, action: #selector(StudentMapViewController.postLocation(_:)))
+        let refreshButton = UIBarButtonItem(image: refreshImage,  style: .plain, target: self, action: #selector(StudentMapViewController.refreshStudentLocation(_:)))
         
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        parent!.navigationItem.rightBarButtonItems = [refreshButton,mapButton]
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.getStudentLocations()
+        self.getStudentLocationsList()
     }
     
     //MARK:- Get Student Locations
-    func getStudentLocations(){
+    func getStudentLocationsList(){
         StudentLocationClient.sharedInstance().getStudentLocations{ (studentLocations, error) in
             if let studentLocations = studentLocations {
                 self.studentLocations = studentLocations
@@ -82,5 +84,14 @@ class StudentListTableViewController: UITableViewController {
             
         }
     }
-
+    func logout() {
+        print("Logout")
+    }
+    func refreshStudentLocation(_ sender: Any) {
+        self.getStudentLocationsList()
+        print("Refresh table")
+    }
+    func postLocation(_ sender: Any) {
+        print("Map")
+    }
 }
