@@ -30,12 +30,18 @@ extension StudentLocationClient{
                 
                 if let results = results?[StudentLocationClient.JSONResponseKeys.StudentLocationsResults] as? [[String:AnyObject]] {
                     
-                    let movies = StudentLocation.moviesFromResults(results)
-                    completionHandlerForStudentLocations(movies, nil)
+                    let studentLocations = StudentLocation.moviesFromResults(results)
+                    completionHandlerForStudentLocations(studentLocations, nil)
                 } else {
-                    completionHandlerForStudentLocations(nil, NSError(domain: "getFavoriteMovies parsing", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could not parse getFavoriteMovies"]))
+                    completionHandlerForStudentLocations(nil, NSError(domain: "getStudentLocations parsing", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could not parse getStudentLocations"]))
                 }
             }
         }
+    }
+    
+    // MARK: POST Convenience Methods
+    
+    func postToStudentLocation(_ movie: StudentLocation, favorite: Bool, completionHandlerForFavorite: @escaping (_ result: Int?, _ error: NSError?) -> Void) {
+        
     }
 }

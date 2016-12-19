@@ -92,6 +92,8 @@ class StudentListTableViewController: UITableViewController {
         print("Refresh table")
     }
     func postLocation(_ sender: Any) {
+        let controller = self.storyboard!.instantiateViewController(withIdentifier: "InofrmationNavView") as! UINavigationController
+        self.present(controller, animated: true, completion: nil)
         print("Map")
     }
 }
