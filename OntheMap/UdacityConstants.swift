@@ -44,5 +44,6 @@ extension UdacityClient{
         static let LoginColorBottom = UIColor(red: 0.023, green: 0.569, blue: 0.910, alpha: 1.0)
         static let textFieldBgColor = UIColor(red: 254/255, green: 198/255, blue: 151/255, alpha:1.0)
         static let BlueColor = UIColor(red: 0.0, green:0.502, blue:0.839, alpha: 1.0)
+        static let LoginButtonColor = UIColor(red: 226/255, green: 58/255, blue: 37/255, alpha:0.7)
     }
 }

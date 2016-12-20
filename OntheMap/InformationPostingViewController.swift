@@ -10,9 +10,12 @@ import UIKit
 import MapKit
 class InformationPostingViewController: UIViewController {
 
+    var studentLocation: StudentLocation?
+    var address:String?
+    var coordinates:CLLocationCoordinate2D?
     @IBOutlet weak var promptLabel: UILabel!
     @IBOutlet weak var userEnteredTextView: UITextView!
-    @IBOutlet weak var findtheMaoButton: UIButton!
+    @IBOutlet weak var findTheMapButton: UIButton!
     
     @IBOutlet weak var shareTextView: UITextView!
     @IBOutlet weak var mapView: MKMapView!
@@ -35,7 +38,7 @@ class InformationPostingViewController: UIViewController {
     
     //MARK:- Find on the MaP
     @IBAction func findTheMapAction(_ sender: Any) {
-        var address:String?
+        
         if userEnteredTextView.text.isEmpty  {
             showAlertMessage("Inofrmation Posting", "Please enter the address.")
         }else{
@@ -47,8 +50,8 @@ class InformationPostingViewController: UIViewController {
                     self.showAlertMessage("Error", (error?.localizedDescription)!)
                 }
                 if let placemark = placemarks?.first {
-                    let coordinates:CLLocationCoordinate2D = placemark.location!.coordinate
-                    self.displayPinOntheMap(coordinates)
+                    self.coordinates = placemark.location!.coordinate
+                    self.displayPinOntheMap(self.coordinates!)
                 }
             })
         }
@@ -63,7 +66,7 @@ class InformationPostingViewController: UIViewController {
     func displayPinOntheMap(_ coordinates:CLLocationCoordinate2D){
         self.promptLabel.isHidden = true
         self.userEnteredTextView.isHidden = true
-        self.findtheMaoButton.isHidden = true
+        self.findTheMapButton.isHidden = true
         
         self.shareTextView.isHidden = false
         self.mapView.isHidden = false
@@ -76,12 +79,21 @@ class InformationPostingViewController: UIViewController {
     }
     //MARK:- Post the Student Location
     @IBAction func submitLocation(_ sender: Any) {
-        
+        self.studentLocation = StudentLocation.init(dictionary: [:])
+        self.studentLocation!.firstName = "Venkat"
+        self.studentLocation!.lastName = "Kurapati"
+        self.studentLocation!.mapString = address
+        self.studentLocation!.latitude = coordinates?.latitude
+        self.studentLocation!.longitude = coordinates?.longitude
+        self.studentLocation!.mediaURL = self.shareTextView.text
+        StudentLocationClient.sharedInstance().postToStudentLocation(self.studentLocation!){ (results, error) in
+            //print(results!)
+        }
     }
     func showAlertMessage(_ title:String, _ message:String) {
         let alertConroller = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alertConroller.addAction(UIAlertAction(title:"OK",style : .default){ action in
-            self.dismiss(animated: true, completion: nil)
+            alertConroller.dismiss(animated: true, completion: nil)
         })
         self.present(alertConroller, animated: true, completion: nil)
     }

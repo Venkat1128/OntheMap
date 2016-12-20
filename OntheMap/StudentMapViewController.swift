@@ -26,7 +26,7 @@ class StudentMapViewController: UIViewController, MKMapViewDelegate {
         let mapButton   = UIBarButtonItem(image: mapImage,  style: .plain, target: self, action: #selector(StudentMapViewController.postLocation(_:)))
         let refreshButton = UIBarButtonItem(image: refreshImage,  style: .plain, target: self, action: #selector(StudentMapViewController.refreshStudentLocation(_:)))
         
-        parent!.navigationItem.rightBarButtonItems = [mapButton, refreshButton]
+        parent!.navigationItem.rightBarButtonItems = [refreshButton, mapButton]
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -119,9 +119,10 @@ class StudentMapViewController: UIViewController, MKMapViewDelegate {
         if control == view.rightCalloutAccessoryView {
             let app = UIApplication.shared
             let toOpen = view.annotation?.subtitle!
-            if (toOpen?.isEmpty)! {
-                app.open(URL(string: toOpen!)!, options: [:], completionHandler: nil)
-
+            if (!(toOpen?.isEmpty)!) {
+                if let url = URL(string: toOpen!){
+                    app.open((url), options: [:], completionHandler: nil)
+                }
             }
         }
     }

@@ -10,16 +10,16 @@ import Foundation
 //MARK:- StudentLocation
 struct StudentLocation {
     
-    let objectId: String?
-    let uniqueKey: String?
-    let firstName: String?
-    let lastName: String?
-    let mapString: String?
-    let mediaURL: String?
-    let latitude: Double?
-    let longitude: Double?
-    let createdAt: String?
-    let updatedAt: String?
+    var objectId: String?
+    var uniqueKey: String?
+    var firstName: String?
+    var lastName: String?
+    var mapString: String?
+    var mediaURL: String?
+    var latitude: Double?
+    var longitude: Double?
+    var createdAt: String?
+    var updatedAt: String?
     
     // MARK: Initializers
     
@@ -37,16 +37,20 @@ struct StudentLocation {
         updatedAt = dictionary[StudentLocationClient.JSONResponseKeys.UpdatedAt] as? String
     }
     
-    static func moviesFromResults(_ results: [[String:AnyObject]]) -> [StudentLocation] {
+    static func studentLocationsFromResults(_ results: [[String:AnyObject]]) -> [StudentLocation] {
         
-        var movies = [StudentLocation]()
+        var studentLocations = [StudentLocation]()
         
         // iterate through array of dictionaries, each Movie is a dictionary
         for result in results {
-            movies.append(StudentLocation(dictionary: result))
+            let studentLocation = StudentLocation(dictionary: result)
+            if studentLocation.firstName != nil &&  studentLocation.lastName != nil && studentLocation.mediaURL != nil && studentLocation.latitude != 0 && studentLocation.longitude != 0{
+                studentLocations.append(studentLocation)
+            }
+            
         }
         
-        return movies
+        return studentLocations
     }
 }
 // MARK: - StudentLocation: Equatable

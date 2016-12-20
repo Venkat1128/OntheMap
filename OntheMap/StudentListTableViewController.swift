@@ -66,7 +66,7 @@ class StudentListTableViewController: UITableViewController {
         
         let studentLocation = self.studentLocations[indexPath.row]
         // Configure the cell...
-        if studentLocation.firstName != nil && studentLocation.lastName != nil{
+        if studentLocation.firstName != nil && studentLocation.lastName != nil && studentLocation.mediaURL != nil{
             cell.imageView?.image = UIImage(named:"icon_pin")
             cell.textLabel?.text = "\(studentLocation.firstName!) \(studentLocation.lastName!)"
         }
@@ -78,14 +78,16 @@ class StudentListTableViewController: UITableViewController {
         let app = UIApplication.shared
         let selectedStudent = self.studentLocations[indexPath.row]
         
-        let toOpen = selectedStudent.mediaURL!
-        if (toOpen.isEmpty) {
-            app.open(URL(string: toOpen)!, options: [:], completionHandler: nil)
-            
+        let toOpen = selectedStudent.mediaURL
+        if (!(toOpen?.isEmpty)!) {
+            if let url = URL(string: toOpen!){
+                app.open((url), options: [:], completionHandler: nil)
+            }
         }
     }
     func logout() {
         print("Logout")
+        dismiss(animated: true, completion: nil)
     }
     func refreshStudentLocation(_ sender: Any) {
         self.getStudentLocationsList()

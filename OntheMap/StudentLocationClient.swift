@@ -126,12 +126,12 @@ class StudentLocationClient: NSObject {
         
         /* 1. Set the parameters */
         var parametersWithApiKey = parameters
-        parametersWithApiKey[ParameterKeys.ParseApplicationId] = Constants.ParseApplicationID as AnyObject?
-        parametersWithApiKey[ParameterKeys.ParseRESTAPIKey] = Constants.RestApiKey as AnyObject?
         
         /* 2/3. Build the URL, Configure the request */
         let request = NSMutableURLRequest(url: parseURLFromParameters(parametersWithApiKey, withPathExtension: method))
         request.httpMethod = "POST"
+        request.addValue(Constants.ParseApplicationID, forHTTPHeaderField: ParameterKeys.ParseApplicationId)
+        request.addValue(Constants.RestApiKey, forHTTPHeaderField: ParameterKeys.ParseRESTAPIKey)
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = jsonBody.data(using: String.Encoding.utf8)
@@ -142,7 +142,7 @@ class StudentLocationClient: NSObject {
             func sendError(_ error: String) {
                 print(error)
                 let userInfo = [NSLocalizedDescriptionKey : error]
-                completionHandlerForPOST(nil, NSError(domain: "taskForGETMethod", code: 1, userInfo: userInfo))
+                completionHandlerForPOST(nil, NSError(domain: "taskForPOSTMethod", code: 1, userInfo: userInfo))
             }
             
             /* GUARD: Was there an error? */

@@ -26,9 +26,9 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         configureUI()
         // Do any additional setup after loading the view.
-        loginButton.backgroundColor = UIColor(red: 226/255, green: 58/255, blue: 37/255, alpha:1.0)
-        loginButton.highlightedBackingColor =  UIColor(red: 226/255, green: 58/255, blue: 37/255, alpha:1.0)
-        loginButton.backingColor =  UIColor(red: 226/255, green: 58/255, blue: 37/255, alpha:1.0)
+        loginButton.backgroundColor = UdacityClient.UI.LoginButtonColor
+        loginButton.highlightedBackingColor =  UdacityClient.UI.LoginButtonColor
+        loginButton.backingColor =  UdacityClient.UI.LoginButtonColor
         // get the app delegate
         appDelegate = UIApplication.shared.delegate as! AppDelegate
         
@@ -78,6 +78,7 @@ class LoginViewController: UIViewController {
                     
                     self.appDelegate.sessionID = sessionID
                     self.appDelegate.udacityUserId = userId
+                    print(userId)
                     self.completeLogin()
                 }
             }else{
@@ -147,9 +148,9 @@ private extension LoginViewController {
         textField.leftView = textFieldPaddingView
         textField.leftViewMode = .always
         textField.backgroundColor = UdacityClient.UI.textFieldBgColor
-        textField.textColor = UdacityClient.UI.BlueColor
+        textField.textColor = UdacityClient.UI.LoginButtonColor
         textField.attributedPlaceholder = NSAttributedString(string: textField.placeholder!, attributes: [NSForegroundColorAttributeName: UIColor.white])
-        textField.tintColor = UdacityClient.UI.BlueColor
+        textField.tintColor = UdacityClient.UI.LoginButtonColor
         textField.delegate = self
     }
     func showAlertMessage(_ title:String, _ message:String) {
