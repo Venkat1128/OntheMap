@@ -130,10 +130,10 @@ class StudentMapViewController: UIViewController, MKMapViewDelegate {
     }
     func refreshStudentLocation(_ sender: Any) {
         self.getStudentLocations()
-        print("Refresh")
     }
     func postLocation(_ sender: Any) {
-        print("Map")
+        let controller = self.storyboard!.instantiateViewController(withIdentifier: "InofrmationNavView") as! UINavigationController
+        self.present(controller, animated: true, completion: nil)
     }
   
 }

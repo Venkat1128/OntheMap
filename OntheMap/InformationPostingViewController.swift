@@ -26,15 +26,14 @@ class InformationPostingViewController: UIViewController {
         self.submitButton.isHidden = true
         // Do any additional setup after loading the view.
     }
-    @IBAction func submitLocation(_ sender: Any) {
-    }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
+    //MARK:- Find on the MaP
     @IBAction func findTheMapAction(_ sender: Any) {
         var address:String?
         if userEnteredTextView.text.isEmpty  {
@@ -56,9 +55,11 @@ class InformationPostingViewController: UIViewController {
         //let address = "1 Infinite Loop, CA, USA"
        
     }
+    //MARK:- Cancel the view
     @IBAction func cancelPosting(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
+    //MARK:- Display Pin on the Map
     func displayPinOntheMap(_ coordinates:CLLocationCoordinate2D){
         self.promptLabel.isHidden = true
         self.userEnteredTextView.isHidden = true
@@ -72,6 +73,10 @@ class InformationPostingViewController: UIViewController {
         let annotation = MKPointAnnotation()
         annotation.coordinate = coordinates
         self.mapView.addAnnotation(annotation)
+    }
+    //MARK:- Post the Student Location
+    @IBAction func submitLocation(_ sender: Any) {
+        
     }
     func showAlertMessage(_ title:String, _ message:String) {
         let alertConroller = UIAlertController(title: title, message: message, preferredStyle: .alert)
