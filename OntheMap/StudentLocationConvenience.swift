@@ -48,17 +48,15 @@ extension StudentLocationClient{
         let mutableMethod: String = Methods.StudentLocation
         let appDelegate: AppDelegate! = UIApplication.shared.delegate as! AppDelegate!
         
-        let jsB =  "{\"uniqueKey\": \"8480562338\", \"firstName\": \"Venkat\", \"lastName\": \"Kurapati\",\"mapString\": \"London\", \"mediaURL\": \"https://udacity.com\",\"latitude\": 51.500152399999997, \"longitude\": -0.12623619999999999}"
-        
-        let jsonBody = "{\"\(StudentLocationClient.JSONBodyKeys.UniqueKey)\": \"\(appDelegate.udacityUserId!)\", \"firstName\": \"\(studentLocation.firstName!)\", \"lastName\": \"\(studentLocation.lastName!)\",\"mapString\": \"\(studentLocation.mapString!)\", \"mediaURL\": \"\(studentLocation.mediaURL!)\",\"latitude\": \(studentLocation.latitude!), \"longitude\": -\(studentLocation.longitude!)}"
+        let jsonBody = "{\"\(StudentLocationClient.JSONBodyKeys.UniqueKey)\": \"\(appDelegate.udacityUserId!)\", \"firstName\": \"\(studentLocation.firstName!)\", \"lastName\": \"\(studentLocation.lastName!)\",\"mapString\": \"\(studentLocation.mapString!)\", \"mediaURL\": \"\(studentLocation.mediaURL!)\",\"latitude\": \(studentLocation.latitude!), \"longitude\": \(studentLocation.longitude!)}"
         /* 2. Make the request */
-        let _ = taskForPOSTMethod(mutableMethod, parameters: parameters as [String:AnyObject], jsonBody: jsB) { (results, error) in
+        let _ = taskForPOSTMethod(mutableMethod, parameters: parameters as [String:AnyObject], jsonBody: jsonBody) { (results, error) in
             
             /* 3. Send the desired value(s) to completion handler */
             if let error = error {
                 completionHandlerForStudentLocation(nil, error)
             } else {
-                if let results = results?[StudentLocationClient.JSONResponseKeys.StatusCode] as? Int {
+                if let results = results?[StudentLocationClient.JSONResponseKeys.ObjectId] as? Int {
                     completionHandlerForStudentLocation(results, nil)
                 } else {
                     completionHandlerForStudentLocation(nil, NSError(domain: "postToStudentLocation parsing", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could not parse postToStudentLocation"]))
