@@ -147,10 +147,10 @@
             </objects>
             <point key="canvasLocation" x="2160" y="-48"/>
         </scene>
-        <!--View Controller-->
+        <!--Information Posting View Controller-->
         <scene sceneID="Gze-XY-kve">
             <objects>
-                <viewController id="q5a-Dy-hkH" sceneMemberID="viewController">
+                <viewController id="q5a-Dy-hkH" customClass="InformationPostingViewController" customModule="OntheMap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="06z-Cb-S7j"/>
                         <viewControllerLayoutGuide type="bottom" id="FZj-JN-b91"/>
@@ -159,65 +159,129 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lAm-fu-eNc">
-                                <rect key="frame" x="20" y="72" width="339" height="80"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="lAm-fu-eNc">
+                                <rect key="frame" x="0.0" y="64" width="375" height="130"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="0.50465539383561642" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" priority="750" constant="80" id="UF2-Bg-wCO"/>
+                                    <constraint firstAttribute="height" priority="750" constant="130" id="q6W-wh-tvU"/>
                                 </constraints>
                                 <attributedString key="attributedText">
                                     <fragment content="Where are you ">
                                         <attributes>
                                             <font key="NSFont" size="25" name=".SFNSText"/>
                                             <font key="NSOriginalFont" size="25" name=".SFNSText"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="truncatingTail" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
                                     </fragment>
                                     <fragment content="studying">
                                         <attributes>
                                             <font key="NSFont" size="25" name="HelveticaNeue-Bold"/>
                                             <font key="NSOriginalFont" size="25" name=".SFNSText"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="truncatingTail" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
                                     </fragment>
                                     <fragment content=" today?">
                                         <attributes>
                                             <font key="NSFont" size="25" name=".SFNSText"/>
                                             <font key="NSOriginalFont" size="25" name=".SFNSText"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="truncatingTail" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
                                     </fragment>
                                 </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qmX-Bs-7M7">
-                                <rect key="frame" x="20" y="162" width="339" height="485"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
+                                <rect key="frame" x="0.0" y="194" width="375" height="345"/>
+                                <color key="backgroundColor" red="0.32549019607843138" green="0.54117647058823526" blue="0.69803921568627447" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <dataDetectorType key="dataDetectorTypes" address="YES"/>
                             </textView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sdp-V2-kau">
-                                <rect key="frame" x="20" y="551" width="339" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Find on the Map"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uOs-rj-BCG">
+                                <rect key="frame" x="20" y="574" width="335" height="32"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                                <state key="normal" title="Find on the Map">
+                                    <color key="titleColor" red="0.32549019610000002" green="0.54117647059999996" blue="0.69803921570000005" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.CornerRadius">
+                                        <integer key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="findTheMapAction:" destination="q5a-Dy-hkH" eventType="touchUpInside" id="2GX-bF-PBz"/>
+                                </connections>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Ez9-8Q-SWd">
+                                <rect key="frame" x="0.0" y="64" width="375" height="130"/>
+                                <color key="backgroundColor" red="0.32549019610000002" green="0.54117647059999996" blue="0.69803921570000005" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" priority="750" constant="130" id="XQz-kq-KPf"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="248" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Hwx-pC-Bs5">
+                                <rect key="frame" x="0.0" y="194" width="375" height="473"/>
+                            </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jew-9a-Cm2">
+                                <rect key="frame" x="20" y="576" width="335" height="30"/>
+                                <color key="backgroundColor" name="scrollBarColor" catalog="System" colorSpace="catalog"/>
+                                <state key="normal" title="Submit"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.CornerRadius">
+                                        <integer key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="submitLocation:" destination="q5a-Dy-hkH" eventType="touchUpInside" id="ltb-ET-tWH"/>
+                                </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlHighlightColor" catalog="System" colorSpace="catalog"/>
                         <constraints>
-                            <constraint firstItem="qmX-Bs-7M7" firstAttribute="trailing" secondItem="uwJ-c0-dva" secondAttribute="trailing" constant="-16" id="4Xx-Gq-Uut"/>
-                            <constraint firstItem="lAm-fu-eNc" firstAttribute="top" secondItem="06z-Cb-S7j" secondAttribute="bottom" constant="8" symbolic="YES" id="5o9-9g-1cJ"/>
-                            <constraint firstItem="lAm-fu-eNc" firstAttribute="trailing" secondItem="qmX-Bs-7M7" secondAttribute="trailing" id="AKf-AC-mQH"/>
-                            <constraint firstItem="qmX-Bs-7M7" firstAttribute="leading" secondItem="uwJ-c0-dva" secondAttribute="leading" constant="20" symbolic="YES" id="Kx9-xz-qi3"/>
-                            <constraint firstItem="lAm-fu-eNc" firstAttribute="leading" secondItem="qmX-Bs-7M7" secondAttribute="leading" id="QfQ-mz-Bfr"/>
-                            <constraint firstItem="qmX-Bs-7M7" firstAttribute="top" secondItem="lAm-fu-eNc" secondAttribute="bottom" constant="10" id="fqO-SR-0Uc"/>
-                            <constraint firstItem="FZj-JN-b91" firstAttribute="top" secondItem="qmX-Bs-7M7" secondAttribute="bottom" constant="20" id="uvq-DC-VhE"/>
+                            <constraint firstItem="qmX-Bs-7M7" firstAttribute="leading" secondItem="uwJ-c0-dva" secondAttribute="leading" id="3b3-GK-Svv"/>
+                            <constraint firstItem="lAm-fu-eNc" firstAttribute="leading" secondItem="qmX-Bs-7M7" secondAttribute="leading" id="3d9-C8-fga"/>
+                            <constraint firstAttribute="trailing" secondItem="uOs-rj-BCG" secondAttribute="trailing" constant="20" symbolic="YES" id="3fv-wq-LKH"/>
+                            <constraint firstAttribute="trailing" secondItem="jew-9a-Cm2" secondAttribute="trailing" constant="20" id="5O7-my-qpI"/>
+                            <constraint firstItem="uOs-rj-BCG" firstAttribute="leading" secondItem="uwJ-c0-dva" secondAttribute="leading" constant="20" symbolic="YES" id="6X5-Ln-U4I"/>
+                            <constraint firstItem="FZj-JN-b91" firstAttribute="top" secondItem="Hwx-pC-Bs5" secondAttribute="bottom" id="7RN-Sh-Bcw"/>
+                            <constraint firstItem="Ez9-8Q-SWd" firstAttribute="top" secondItem="06z-Cb-S7j" secondAttribute="bottom" id="AYm-SF-t90"/>
+                            <constraint firstItem="qmX-Bs-7M7" firstAttribute="centerX" secondItem="uOs-rj-BCG" secondAttribute="centerX" id="GBB-R7-vJG"/>
+                            <constraint firstItem="Ez9-8Q-SWd" firstAttribute="trailing" secondItem="uwJ-c0-dva" secondAttribute="trailing" id="NGk-Va-yZe"/>
+                            <constraint firstItem="Hwx-pC-Bs5" firstAttribute="leading" secondItem="uwJ-c0-dva" secondAttribute="leading" id="OVx-uA-yv9"/>
+                            <constraint firstItem="qmX-Bs-7M7" firstAttribute="top" secondItem="lAm-fu-eNc" secondAttribute="bottom" id="QGn-Cc-LPv"/>
+                            <constraint firstItem="FZj-JN-b91" firstAttribute="top" secondItem="jew-9a-Cm2" secondAttribute="bottom" constant="61" id="WVJ-M8-BFc"/>
+                            <constraint firstItem="Hwx-pC-Bs5" firstAttribute="trailing" secondItem="uwJ-c0-dva" secondAttribute="trailing" id="Wb9-VC-fDn"/>
+                            <constraint firstItem="Ez9-8Q-SWd" firstAttribute="leading" secondItem="uwJ-c0-dva" secondAttribute="leading" id="a3d-zF-ZLQ"/>
+                            <constraint firstAttribute="trailing" secondItem="lAm-fu-eNc" secondAttribute="trailing" id="cQ2-o5-zCt"/>
+                            <constraint firstItem="lAm-fu-eNc" firstAttribute="top" secondItem="06z-Cb-S7j" secondAttribute="bottom" id="jXN-FP-kvN"/>
+                            <constraint firstItem="jew-9a-Cm2" firstAttribute="leading" secondItem="uwJ-c0-dva" secondAttribute="leading" constant="20" id="rlL-8Q-WgI"/>
+                            <constraint firstItem="uOs-rj-BCG" firstAttribute="top" secondItem="qmX-Bs-7M7" secondAttribute="bottom" constant="35" id="saV-kP-j9k"/>
+                            <constraint firstItem="FZj-JN-b91" firstAttribute="top" secondItem="uOs-rj-BCG" secondAttribute="bottom" priority="750" constant="61" id="tpq-CT-ADO"/>
+                            <constraint firstItem="Hwx-pC-Bs5" firstAttribute="top" secondItem="Ez9-8Q-SWd" secondAttribute="bottom" id="wTs-kb-Kx9"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="iXO-EY-pRh"/>
+                    <navigationItem key="navigationItem" id="iXO-EY-pRh">
+                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="3Z1-Ak-9Tw">
+                            <connections>
+                                <action selector="cancelPosting:" destination="q5a-Dy-hkH" id="MyU-wE-8Of"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="findtheMaoButton" destination="uOs-rj-BCG" id="kxV-Sz-gc2"/>
+                        <outlet property="mapView" destination="Hwx-pC-Bs5" id="3mq-36-taJ"/>
+                        <outlet property="promptLabel" destination="lAm-fu-eNc" id="Acz-HW-dDC"/>
+                        <outlet property="shareTextView" destination="Ez9-8Q-SWd" id="eUb-mw-WzW"/>
+                        <outlet property="submitButton" destination="jew-9a-Cm2" id="LoW-tC-5Pk"/>
+                        <outlet property="userEnteredTextView" destination="qmX-Bs-7M7" id="nlA-4f-dbz"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dFP-YA-apk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4077.5999999999999" y="191.1544227886057"/>
+            <point key="canvasLocation" x="4076" y="189.3553223388306"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="JxA-c9-oBr">
@@ -294,9 +358,10 @@
             <objects>
                 <navigationController storyboardIdentifier="InofrmationNavView" automaticallyAdjustsScrollViewInsets="NO" id="PW5-t8-y2L" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="iVV-N1-08K">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="iVV-N1-08K">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" red="0.37968165749999999" green="0.73032545380000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
