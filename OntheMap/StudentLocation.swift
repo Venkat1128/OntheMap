@@ -23,7 +23,7 @@ struct StudentLocation {
     
     // MARK: Initializers
     
-    // construct a TMDBMovie from a dictionary
+    // construct a StudentLocation from a dictionary
     init(dictionary: [String:AnyObject]) {
         objectId = dictionary[StudentLocationClient.JSONResponseKeys.ObjectId] as? String
         uniqueKey = dictionary[StudentLocationClient.JSONBodyKeys.UniqueKey] as? String
@@ -41,7 +41,7 @@ struct StudentLocation {
         
         var studentLocations = [StudentLocation]()
         
-        // iterate through array of dictionaries, each Movie is a dictionary
+        // iterate through array of dictionaries, each student location is a dictionary
         for result in results {
             let studentLocation = StudentLocation(dictionary: result)
             if studentLocation.firstName != nil &&  studentLocation.lastName != nil && studentLocation.mediaURL != nil && studentLocation.latitude != 0 && studentLocation.longitude != 0{
