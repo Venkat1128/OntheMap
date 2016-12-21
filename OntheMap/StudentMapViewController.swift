@@ -39,6 +39,8 @@ class StudentMapViewController: UIViewController, MKMapViewDelegate {
         StudentLocationClient.sharedInstance().getStudentLocations{ (studentLocations, error) in
             if let studentLocations = studentLocations {
                 self.studentLocations = studentLocations
+                let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+                appDelegate.studentLocations = self.studentLocations
                  self.addAnnotations()
                 performUIUpdatesOnMain {
                     // When the array is complete, we add the annotations to the map.

@@ -13,6 +13,9 @@ class InformationPostingViewController: UIViewController {
     var studentLocation: StudentLocation?
     var address:String?
     var coordinates:CLLocationCoordinate2D?
+    var studentLocations: [StudentLocation] = [StudentLocation]()
+    var isStudentPostedAlready: Bool?
+    
     @IBOutlet weak var promptLabel: UILabel!
     @IBOutlet weak var userEnteredTextView: UITextView!
     @IBOutlet weak var findTheMapButton: UIButton!
@@ -79,6 +82,7 @@ class InformationPostingViewController: UIViewController {
     }
     //MARK:- Post the Student Location
     @IBAction func submitLocation(_ sender: Any) {
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         self.studentLocation = StudentLocation.init(dictionary: [:])
         self.studentLocation!.firstName = "Venkat"
         self.studentLocation!.lastName = "Kurapati"
@@ -86,9 +90,25 @@ class InformationPostingViewController: UIViewController {
         self.studentLocation!.latitude = coordinates?.latitude
         self.studentLocation!.longitude = coordinates?.longitude
         self.studentLocation!.mediaURL = self.shareTextView.text
-        StudentLocationClient.sharedInstance().postToStudentLocation(self.studentLocation!){ (results, error) in
-            //print(results!)
+        self.studentLocations = appDelegate.studentLocations
+        for studentLocation in self.studentLocations{
+            //Check for student is alreayd posted or not?
+            if studentLocation.uniqueKey == appDelegate.udacityUserId {
+                isStudentPostedAlready = true
+                appDelegate.udacityUserObjectId = studentLocation.objectId
+            }
         }
+        if isStudentPostedAlready! {
+            StudentLocationClient.sharedInstance().updateToStudentLocation(self.studentLocation!){ (objectId, error) in
+                print(objectId!)
+            }
+        }else{
+            StudentLocationClient.sharedInstance().postToStudentLocation(self.studentLocation!){ (objectId, error) in
+                print(objectId!)
+            }
+        }
+       
+        
     }
     func showAlertMessage(_ title:String, _ message:String) {
         let alertConroller = UIAlertController(title: title, message: message, preferredStyle: .alert)

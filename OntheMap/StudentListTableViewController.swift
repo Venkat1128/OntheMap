@@ -33,6 +33,8 @@ class StudentListTableViewController: UITableViewController {
         StudentLocationClient.sharedInstance().getStudentLocations{ (studentLocations, error) in
             if let studentLocations = studentLocations {
                 self.studentLocations = studentLocations
+                let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+                appDelegate.studentLocations = self.studentLocations
                 performUIUpdatesOnMain {
                     // When the array is complete, we add the annotations to the map.
                     self.tableView.reloadData()
