@@ -16,10 +16,15 @@ class StudentMapViewController: UIViewController, MKMapViewDelegate {
     // MARK: Properties
     var studentLocations: [StudentLocation] = [StudentLocation]()
     var annotations = [MKPointAnnotation]()
-    
+    var myActivityIndicator: UIActivityIndicatorView!
     // MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+        // Position Activity Indicator in the center of the main view
+        myActivityIndicator.center = view.center
+        // If needed, you can prevent Acivity Indicator from hiding when stopAnimating() is called
+        myActivityIndicator.hidesWhenStopped = true
          parent!.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(logout))
         let mapImage   = UIImage(named: StudentLocationClient.NavIcons.MAP_ICON)!
         let refreshImage = UIImage(named: StudentLocationClient.NavIcons.REFRESH_ICON)!
@@ -132,7 +137,10 @@ class StudentMapViewController: UIViewController, MKMapViewDelegate {
     }
     //MARK:- Logout
     func logout() {
+        myActivityIndicator.startAnimating()
+        view.addSubview(myActivityIndicator)
         UdacityClient.sharedInstance().deleteUdacitySession{ (session, error) in
+            self.myActivityIndicator.stopAnimating()
             if  error == nil {
                 self.dismiss(animated: true, completion: nil)
             }

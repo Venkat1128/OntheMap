@@ -13,7 +13,7 @@ class LoginViewController: UIViewController {
     
     var appDelegate: AppDelegate!
     var keyboardOnScreen = false
-    
+    var myActivityIndicator: UIActivityIndicatorView!
     // MARK: Outlets
     
     @IBOutlet weak var usernameTextField: UITextField!
@@ -24,6 +24,11 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var udacityLogoImageView: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+        // Position Activity Indicator in the center of the main view
+        myActivityIndicator.center = view.center
+        // If needed, you can prevent Acivity Indicator from hiding when stopAnimating() is called
+        myActivityIndicator.hidesWhenStopped = true
         configureUI()
         // Do any additional setup after loading the view.
         loginButton.backgroundColor = UdacityClient.UI.LoginButtonColor
@@ -55,9 +60,14 @@ class LoginViewController: UIViewController {
             if(UdacityClient.sharedInstance().isConnectedToNetwork()) {
                 
                 setUIEnabled(false)
+                // Start Activity Indicator
+                myActivityIndicator.startAnimating()
+                view.addSubview(myActivityIndicator)
                 let jsonBody = "{\"udacity\": {\"\(UdacityClient.UdacityConstans.UdacityParameterKeys.Username)\": \"\(usernameTextField.text!)\", \"\(UdacityClient.UdacityConstans.UdacityParameterKeys.Password)\": \"\(passwordTextField.text!)\"}}"
                 let _ =  UdacityClient.sharedInstance().taskForPOSTMethod(UdacityClient.UdacityConstans.UdacityResponseKeys.Session, jsonBody: jsonBody){
                     (results, error) in
+                    //Stop Animation
+                    self.myActivityIndicator.stopAnimating()
                     /* GUARD: Was there an error? */
                     guard (error == nil) else {
                         self.setUIEnabled(true)
@@ -75,7 +85,8 @@ class LoginViewController: UIViewController {
                         self.showAlertMessage(UdacityClient.UdacityConstans.ErrorMessages.LoginError, "Cannot find key '\(UdacityClient.UdacityConstans.UdacityResponseKeys.UserId)' in \(accountDict)")
                         return
                     }
-                    
+                    //Stop Animation
+                    self.myActivityIndicator.stopAnimating()
                     self.appDelegate.sessionID = sessionID
                     self.appDelegate.udacityUserId = userId
                     print(userId)
@@ -95,6 +106,7 @@ class LoginViewController: UIViewController {
     }
     //MARK:- Login with Facebook
     @IBAction func logininwithFacebook(_ sender: Any) {
+        showAlertMessage("Facebook Login", "Work in progress")
     }
     //MARK:- Complete Login
     private func completeLogin() {
