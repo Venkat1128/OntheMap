@@ -156,11 +156,11 @@
                         <viewControllerLayoutGuide type="bottom" id="FZj-JN-b91"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="uwJ-c0-dva">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="lAm-fu-eNc">
-                                <rect key="frame" x="0.0" y="64" width="375" height="130"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="130"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="0.50465539383561642" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" priority="750" constant="130" id="q6W-wh-tvU"/>
@@ -191,14 +191,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qmX-Bs-7M7">
-                                <rect key="frame" x="0.0" y="194" width="375" height="345"/>
+                                <rect key="frame" x="0.0" y="130" width="375" height="345"/>
                                 <color key="backgroundColor" red="0.32549019607843138" green="0.54117647058823526" blue="0.69803921568627447" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <dataDetectorType key="dataDetectorTypes" address="YES"/>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uOs-rj-BCG">
-                                <rect key="frame" x="20" y="574" width="335" height="32"/>
+                                <rect key="frame" x="20" y="510" width="335" height="32"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                                 <state key="normal" title="Find on the Map">
@@ -213,21 +213,21 @@
                                     <action selector="findTheMapAction:" destination="q5a-Dy-hkH" eventType="touchUpInside" id="2GX-bF-PBz"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Ez9-8Q-SWd">
-                                <rect key="frame" x="0.0" y="64" width="375" height="130"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Ez9-8Q-SWd">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="130"/>
                                 <color key="backgroundColor" red="0.32549019610000002" green="0.54117647059999996" blue="0.69803921570000005" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" priority="750" constant="130" id="XQz-kq-KPf"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <textInputTraits key="textInputTraits"/>
                             </textView>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="248" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Hwx-pC-Bs5">
-                                <rect key="frame" x="0.0" y="194" width="375" height="473"/>
+                                <rect key="frame" x="0.0" y="130" width="375" height="473"/>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jew-9a-Cm2">
-                                <rect key="frame" x="20" y="576" width="335" height="30"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <rect key="frame" x="102" y="512" width="171" height="30"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <state key="normal" title="Submit">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -246,7 +246,7 @@
                             <constraint firstItem="qmX-Bs-7M7" firstAttribute="leading" secondItem="uwJ-c0-dva" secondAttribute="leading" id="3b3-GK-Svv"/>
                             <constraint firstItem="lAm-fu-eNc" firstAttribute="leading" secondItem="qmX-Bs-7M7" secondAttribute="leading" id="3d9-C8-fga"/>
                             <constraint firstAttribute="trailing" secondItem="uOs-rj-BCG" secondAttribute="trailing" constant="20" symbolic="YES" id="3fv-wq-LKH"/>
-                            <constraint firstAttribute="trailing" secondItem="jew-9a-Cm2" secondAttribute="trailing" constant="20" id="5O7-my-qpI"/>
+                            <constraint firstAttribute="trailing" secondItem="jew-9a-Cm2" secondAttribute="trailing" constant="102" id="5O7-my-qpI"/>
                             <constraint firstItem="uOs-rj-BCG" firstAttribute="leading" secondItem="uwJ-c0-dva" secondAttribute="leading" constant="20" symbolic="YES" id="6X5-Ln-U4I"/>
                             <constraint firstItem="FZj-JN-b91" firstAttribute="top" secondItem="Hwx-pC-Bs5" secondAttribute="bottom" id="7RN-Sh-Bcw"/>
                             <constraint firstItem="Ez9-8Q-SWd" firstAttribute="top" secondItem="06z-Cb-S7j" secondAttribute="bottom" id="AYm-SF-t90"/>
@@ -259,7 +259,7 @@
                             <constraint firstItem="Ez9-8Q-SWd" firstAttribute="leading" secondItem="uwJ-c0-dva" secondAttribute="leading" id="a3d-zF-ZLQ"/>
                             <constraint firstAttribute="trailing" secondItem="lAm-fu-eNc" secondAttribute="trailing" id="cQ2-o5-zCt"/>
                             <constraint firstItem="lAm-fu-eNc" firstAttribute="top" secondItem="06z-Cb-S7j" secondAttribute="bottom" id="jXN-FP-kvN"/>
-                            <constraint firstItem="jew-9a-Cm2" firstAttribute="leading" secondItem="uwJ-c0-dva" secondAttribute="leading" constant="20" id="rlL-8Q-WgI"/>
+                            <constraint firstItem="jew-9a-Cm2" firstAttribute="leading" secondItem="uwJ-c0-dva" secondAttribute="leading" constant="102" id="rlL-8Q-WgI"/>
                             <constraint firstItem="uOs-rj-BCG" firstAttribute="top" secondItem="qmX-Bs-7M7" secondAttribute="bottom" constant="35" id="saV-kP-j9k"/>
                             <constraint firstItem="FZj-JN-b91" firstAttribute="top" secondItem="uOs-rj-BCG" secondAttribute="bottom" priority="750" constant="61" id="tpq-CT-ADO"/>
                             <constraint firstItem="Hwx-pC-Bs5" firstAttribute="top" secondItem="Ez9-8Q-SWd" secondAttribute="bottom" id="wTs-kb-Kx9"/>
@@ -360,10 +360,11 @@
             <objects>
                 <navigationController storyboardIdentifier="InofrmationNavView" automaticallyAdjustsScrollViewInsets="NO" id="PW5-t8-y2L" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="iVV-N1-08K">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="iVV-N1-08K">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" red="0.37968165749999999" green="0.73032545380000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="barTintColor" red="0.32549019610000002" green="0.54117647059999996" blue="0.69803921570000005" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>

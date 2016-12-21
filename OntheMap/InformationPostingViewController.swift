@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 class InformationPostingViewController: UIViewController {
-
+    
     var studentLocation: StudentLocation?
     var address:String?
     var coordinates:CLLocationCoordinate2D?
@@ -26,14 +26,16 @@ class InformationPostingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.shareTextView.isHidden = true
         self.mapView.isHidden = true
         self.submitButton.isHidden = true
         // Do any additional setup after loading the view.
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
     }
     
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -59,7 +61,7 @@ class InformationPostingViewController: UIViewController {
             })
         }
         //let address = "1 Infinite Loop, CA, USA"
-       
+        
     }
     //MARK:- Cancel the view
     @IBAction func cancelPosting(_ sender: Any) {
@@ -82,33 +84,47 @@ class InformationPostingViewController: UIViewController {
     }
     //MARK:- Post the Student Location
     @IBAction func submitLocation(_ sender: Any) {
-        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
-        self.studentLocation = StudentLocation.init(dictionary: [:])
-        self.studentLocation!.firstName = "Venkat"
-        self.studentLocation!.lastName = "Kurapati"
-        self.studentLocation!.mapString = address
-        self.studentLocation!.latitude = coordinates?.latitude
-        self.studentLocation!.longitude = coordinates?.longitude
-        self.studentLocation!.mediaURL = self.shareTextView.text
-        self.studentLocations = appDelegate.studentLocations
-        for studentLocation in self.studentLocations{
-            //Check for student is alreayd posted or not?
-            if studentLocation.uniqueKey == appDelegate.udacityUserId {
-                isStudentPostedAlready = true
-                appDelegate.udacityUserObjectId = studentLocation.objectId
-            }
-        }
-        if isStudentPostedAlready! {
-            StudentLocationClient.sharedInstance().updateToStudentLocation(self.studentLocation!){ (objectId, error) in
-                print(objectId!)
-            }
+        if shareTextView.text.isEmpty {
+            showAlertMessage("Inofrmation Posting", "Please enter the share Link")
         }else{
-            StudentLocationClient.sharedInstance().postToStudentLocation(self.studentLocation!){ (objectId, error) in
-                print(objectId!)
+            let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+            self.studentLocation = StudentLocation.init(dictionary: [:])
+            self.studentLocation!.firstName = "Venkat"
+            self.studentLocation!.lastName = "Kurapati"
+            self.studentLocation!.mapString = address
+            self.studentLocation!.latitude = coordinates?.latitude
+            self.studentLocation!.longitude = coordinates?.longitude
+            self.studentLocation!.mediaURL = self.shareTextView.text
+            self.studentLocations = appDelegate.studentLocations
+            for studentLocation in self.studentLocations{
+                //Check for student is alreayd posted or not?
+                if studentLocation.uniqueKey == appDelegate.udacityUserId {
+                    isStudentPostedAlready = true
+                    appDelegate.udacityUserObjectId = studentLocation.objectId
+                }
             }
+            if isStudentPostedAlready! {
+                StudentLocationClient.sharedInstance().updateToStudentLocation(self.studentLocation!){ (objectId, error) in
+                    /* GUARD: Was there an error? */
+                    guard (error == nil) else {
+                        self.showAlertMessage(UdacityClient.UdacityConstans.ErrorMessages.InformationPosting, "\(error!.userInfo[NSLocalizedDescriptionKey] as! String)")
+                        return
+                    }
+                    self.dismiss(animated: true, completion: nil)
+
+                }
+            }else{
+                StudentLocationClient.sharedInstance().postToStudentLocation(self.studentLocation!){ (updatedAt, error) in
+                    /* GUARD: Was there an error? */
+                    guard (error == nil) else {
+                        self.showAlertMessage(UdacityClient.UdacityConstans.ErrorMessages.InformationPosting, "\(error!.userInfo[NSLocalizedDescriptionKey] as! String)")
+                        return
+                    }
+                    self.dismiss(animated: true, completion: nil)
+                }
+            }
+            
         }
-       
-        
     }
     func showAlertMessage(_ title:String, _ message:String) {
         let alertConroller = UIAlertController(title: title, message: message, preferredStyle: .alert)

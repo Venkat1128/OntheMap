@@ -124,19 +124,30 @@ class StudentMapViewController: UIViewController, MKMapViewDelegate {
             if (!(toOpen?.isEmpty)!) {
                 if let url = URL(string: toOpen!){
                     app.open((url), options: [:], completionHandler: nil)
+                }else{
+                    showAlertMessage("On the Map", "Media url is not valid!")
                 }
             }
         }
     }
+    //MARK:- Logout
     func logout() {
         print("Logout")
     }
+    //MARK:- Refresh Student location
     func refreshStudentLocation(_ sender: Any) {
         self.getStudentLocations()
     }
+    //MARK:- Present Information View
     func postLocation(_ sender: Any) {
         let controller = self.storyboard!.instantiateViewController(withIdentifier: "InofrmationNavView") as! UINavigationController
         self.present(controller, animated: true, completion: nil)
     }
-  
+    func showAlertMessage(_ title:String, _ message:String) {
+        let alertConroller = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alertConroller.addAction(UIAlertAction(title:"OK",style : .default){ action in
+            alertConroller.dismiss(animated: true, completion: nil)
+        })
+        self.present(alertConroller, animated: true, completion: nil)
+    }
 }
