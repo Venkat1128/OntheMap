@@ -74,7 +74,6 @@ class StudentLocationClient: NSObject {
         
         /* 1. Set the parameters */
         var parametersWithApiKey = parameters
-        parametersWithApiKey[JSONResponseKeys.ObjectId] = Constants.ParseApplicationID as AnyObject?
         
         /* 2/3. Build the URL, Configure the request */
         let request = NSMutableURLRequest(url: parseURLFromParameters(parametersWithApiKey, withPathExtension: method))
@@ -111,7 +110,7 @@ class StudentLocationClient: NSObject {
                 sendError("No data was returned by the request!")
                 return
             }
-            
+             print(NSString(data: data, encoding: String.Encoding.utf8.rawValue)!)
             /* 5/6. Parse the data and use the data (happens in completion handler) */
             self.convertDataWithCompletionHandler(data, completionHandlerForConvertData: completionHandlerForPUT)
         }

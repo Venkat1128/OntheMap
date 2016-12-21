@@ -65,8 +65,8 @@ extension StudentLocationClient{
     func updateToStudentLocation(_ studentLocation: StudentLocation, completionHandlerForStudentLocation: @escaping (_ result: String?, _ error: NSError?) -> Void) {
         let appDelegate: AppDelegate! = UIApplication.shared.delegate as! AppDelegate!
         /* 1. Specify parameters, method (if has {key}), and HTTP body (if POST) */
-        let parameters = [JSONResponseKeys.ObjectId : appDelegate.udacityUserId!]
-        let mutableMethod: String = Methods.StudentLocation
+        let parameters = [String:AnyObject]()//[JSONResponseKeys.ObjectId : appDelegate.udacityUserObjectId!]
+        let mutableMethod: String = Methods.StudentLocation + "/" + appDelegate.udacityUserObjectId!
         
         /* 2. Make the request */
         let _ = taskForPUTMethod(mutableMethod, parameters: parameters as [String:AnyObject], jsonBody: getJSONBodyForStudentLocation(studentLocation)) { (results, error) in
@@ -75,7 +75,7 @@ extension StudentLocationClient{
             if let error = error {
                 completionHandlerForStudentLocation(nil, error)
             } else {
-                if let results = results?[StudentLocationClient.JSONResponseKeys.ObjectId] as? String {
+                if let results = results?[StudentLocationClient.JSONResponseKeys.UpdatedAt] as? String {
                     completionHandlerForStudentLocation(results, nil)
                 } else {
                     completionHandlerForStudentLocation(nil, NSError(domain: "updateToStudentLocation parsing", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could not parse updateToStudentLocation"]))
