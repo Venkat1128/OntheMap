@@ -29,6 +29,9 @@ extension UdacityClient{
             static let Id = "id"
             static let Account = "account"
             static let UserId = "key"
+            static let FirstName = "first_name"
+            static let LastName = "last_name"
+            static let User = "user"
         }
         //MARK:- Error Messages
         struct ErrorMessages {
@@ -36,6 +39,9 @@ extension UdacityClient{
             static let NetworkErrorTitle = "Connection Error"
             static let NetworkErrorMsg = "Network Not Reachbale!"
             static let InformationPosting = "Information Posting"
+        }
+        struct Methods {
+            static let Users = "users"
         }
     }
     static let signUpURL = "https://www.udacity.com/account/auth#!/signup"

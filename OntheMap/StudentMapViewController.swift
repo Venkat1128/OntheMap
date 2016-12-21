@@ -132,7 +132,11 @@ class StudentMapViewController: UIViewController, MKMapViewDelegate {
     }
     //MARK:- Logout
     func logout() {
-        print("Logout")
+        UdacityClient.sharedInstance().deleteUdacitySession{ (session, error) in
+            if  error == nil {
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
     }
     //MARK:- Refresh Student location
     func refreshStudentLocation(_ sender: Any) {

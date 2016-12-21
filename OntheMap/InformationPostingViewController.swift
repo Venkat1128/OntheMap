@@ -15,6 +15,10 @@ class InformationPostingViewController: UIViewController {
     var coordinates:CLLocationCoordinate2D?
     var studentLocations: [StudentLocation] = [StudentLocation]()
     var isStudentPostedAlready: Bool?
+    var firstName: String!
+    var lastName: String!
+    
+    
     
     @IBOutlet weak var promptLabel: UILabel!
     @IBOutlet weak var userEnteredTextView: UITextView!
@@ -33,6 +37,7 @@ class InformationPostingViewController: UIViewController {
         // Do any additional setup after loading the view.
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
+        fetchUdacityUserProfile()
     }
     
     
@@ -40,7 +45,15 @@ class InformationPostingViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+    func fetchUdacityUserProfile() {
+        UdacityClient.sharedInstance().getPublicUserData{ (user, error) in
+            if  error == nil {
+
+                self.firstName = user?.first_name!
+                self.lastName = user?.last_name!
+            }
+        }
+    }
     //MARK:- Find on the MaP
     @IBAction func findTheMapAction(_ sender: Any) {
         
@@ -89,8 +102,8 @@ class InformationPostingViewController: UIViewController {
         }else{
             let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
             self.studentLocation = StudentLocation.init(dictionary: [:])
-            self.studentLocation!.firstName = "Venkat"
-            self.studentLocation!.lastName = "Kurapati"
+            self.studentLocation!.firstName = self.firstName
+            self.studentLocation!.lastName = self.lastName
             self.studentLocation!.mapString = address
             self.studentLocation!.latitude = coordinates?.latitude
             self.studentLocation!.longitude = coordinates?.longitude

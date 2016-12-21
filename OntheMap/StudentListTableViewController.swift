@@ -91,7 +91,11 @@ class StudentListTableViewController: UITableViewController {
     }
     //MARK:- Logout
     func logout() {
-        dismiss(animated: true, completion: nil)
+        UdacityClient.sharedInstance().deleteUdacitySession{ (session, error) in
+            if  error == nil {
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
     }
     //MARK:- Refresh Student location
     func refreshStudentLocation(_ sender: Any) {
