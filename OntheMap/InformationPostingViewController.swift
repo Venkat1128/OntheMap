@@ -13,11 +13,11 @@ class InformationPostingViewController: UIViewController , MKMapViewDelegate ,UI
     var studentLocation: StudentLocation?
     var address:String?
     var coordinates:CLLocationCoordinate2D?
-    var studentLocations: [StudentLocation] = [StudentLocation]()
     var isStudentPostedAlready: Bool!
     var firstName: String!
     var lastName: String!
     var myActivityIndicator: UIActivityIndicatorView!
+    var studentLocationModel: StudentLocations!
     
     @IBOutlet weak var promptLabel: UILabel!
     @IBOutlet weak var userEnteredTextView: UITextView!
@@ -28,6 +28,8 @@ class InformationPostingViewController: UIViewController , MKMapViewDelegate ,UI
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //shared instance of model class
+        self.studentLocationModel = StudentLocations.sharedInstance()
         mapView.delegate = self
         userEnteredTextView.delegate = self
         shareTextView.delegate = self
@@ -127,12 +129,12 @@ class InformationPostingViewController: UIViewController , MKMapViewDelegate ,UI
             self.studentLocation!.latitude = coordinates?.latitude
             self.studentLocation!.longitude = coordinates?.longitude
             self.studentLocation!.mediaURL = self.shareTextView.text
-            self.studentLocations = appDelegate.studentLocations
-            for studentLocation in self.studentLocations{
+            for studentLocation in self.studentLocationModel.studentLocations{
                 //Check for student is alreayd posted or not?
                 if studentLocation.uniqueKey == appDelegate.udacityUserId {
                     isStudentPostedAlready = true
                     appDelegate.udacityUserObjectId = studentLocation.objectId
+                    break
                 }else{
                     isStudentPostedAlready = false
                 }

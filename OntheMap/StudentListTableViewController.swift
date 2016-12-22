@@ -12,9 +12,12 @@ class StudentListTableViewController: UITableViewController {
     
     // MARK: Properties
     var myActivityIndicator: UIActivityIndicatorView!
-    var studentLocations: [StudentLocation] = [StudentLocation]()
+    var studentLocationModel: StudentLocations!
+    //var studentLocations: [StudentLocation] = [StudentLocation]()
     override func viewDidLoad() {
         super.viewDidLoad()
+        //shared instance of model class
+        studentLocationModel = StudentLocations.sharedInstance()
         myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
         // Position Activity Indicator in the center of the main view
         myActivityIndicator.center = view.center
@@ -37,9 +40,7 @@ class StudentListTableViewController: UITableViewController {
     func getStudentLocationsList(){
         StudentLocationClient.sharedInstance().getStudentLocations{ (studentLocations, error) in
             if let studentLocations = studentLocations {
-                self.studentLocations = studentLocations
-                let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
-                appDelegate.studentLocations = self.studentLocations
+                self.studentLocationModel.studentLocations = studentLocations
                 performUIUpdatesOnMain {
                     // When the array is complete, we add the annotations to the map.
                     self.tableView.reloadData()
@@ -64,14 +65,14 @@ class StudentListTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return self.studentLocations.count
+        return self.studentLocationModel.studentLocations.count
     }
     
     //MARK:- Table view delegate methods
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "studentLocation", for: indexPath)
         
-        let studentLocation = self.studentLocations[indexPath.row]
+        let studentLocation = self.studentLocationModel.studentLocations[indexPath.row]
         // Configure the cell...
         if studentLocation.firstName != nil && studentLocation.lastName != nil && studentLocation.mediaURL != nil{
             cell.imageView?.image = UIImage(named:"icon_pin")
@@ -83,7 +84,7 @@ class StudentListTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let app = UIApplication.shared
-        let selectedStudent = self.studentLocations[indexPath.row]
+        let selectedStudent = self.studentLocationModel.studentLocations[indexPath.row]
         
         let toOpen = selectedStudent.mediaURL
         if (!(toOpen?.isEmpty)!) {

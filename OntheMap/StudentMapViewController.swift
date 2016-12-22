@@ -8,18 +8,22 @@
 
 import UIKit
 import MapKit
-class StudentMapViewController: UIViewController, MKMapViewDelegate {
+class StudentMapViewController: UIViewController, MKMapViewDelegate{
 
     // The map. See the setup in the Storyboard file. Note particularly that the view controller
     // is set up as the map view's delegate.
     @IBOutlet weak var mapView: MKMapView!
     // MARK: Properties
-    var studentLocations: [StudentLocation] = [StudentLocation]()
     var annotations = [MKPointAnnotation]()
     var myActivityIndicator: UIActivityIndicatorView!
+    var studentLocationModel: StudentLocations!
+
     // MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.mapView.delegate = self
+        //shared instance of model class
+        self.studentLocationModel = StudentLocations.sharedInstance()
         myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
         // Position Activity Indicator in the center of the main view
         myActivityIndicator.center = view.center
@@ -43,9 +47,7 @@ class StudentMapViewController: UIViewController, MKMapViewDelegate {
     func getStudentLocations(){
         StudentLocationClient.sharedInstance().getStudentLocations{ (studentLocations, error) in
             if let studentLocations = studentLocations {
-                self.studentLocations = studentLocations
-                let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
-                appDelegate.studentLocations = self.studentLocations
+                self.studentLocationModel.studentLocations = studentLocations
                  self.addAnnotations()
                 performUIUpdatesOnMain {
                     // When the array is complete, we add the annotations to the map.
@@ -56,7 +58,7 @@ class StudentMapViewController: UIViewController, MKMapViewDelegate {
                 }
             }
             else {
-                print(error!)
+                self.showAlertMessage(StudentLocationClient.ErrorMessages.OntheMapError, (error?.description)!)
             }
         }
     }
@@ -64,7 +66,7 @@ class StudentMapViewController: UIViewController, MKMapViewDelegate {
     func addAnnotations(){
         // The "locations" array is an array of dictionary objects that are similar to the JSON
         // data that you can download from parse.
-        let locations = self.studentLocations
+        let locations = self.studentLocationModel.studentLocations
         
         // The "locations" array is loaded with the sample data below. We are using the dictionaries
         // to create map annotations. This would be more stylish if the dictionaries were being
@@ -82,14 +84,16 @@ class StudentMapViewController: UIViewController, MKMapViewDelegate {
                 let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
                 
                 // Here we create the annotation and set its coordiate, title, and subtitle properties
-                let annotation = MKPointAnnotation()
-                annotation.coordinate = coordinate
+                
                 if studentLocation.firstName != nil && studentLocation.lastName != nil && studentLocation.mediaURL != nil  {
+                    let annotation = MKPointAnnotation()
+                    annotation.coordinate = coordinate
                     annotation.title = "\(studentLocation.firstName!) \(studentLocation.lastName!)"
                     annotation.subtitle = studentLocation.mediaURL
+                    // Finally we place the annotation in an array of annotations.
+                    self.annotations.append(annotation)
                 }
-                // Finally we place the annotation in an array of annotations.
-                self.annotations.append(annotation)
+                
             }
            
         }

@@ -159,7 +159,6 @@
 		82B211151E0590D200C9189E /* Map */ = {
 			isa = PBXGroup;
 			children = (
-				82B211161E05912A00C9189E /* StudentLocation.swift */,
 				82B211181E0595DA00C9189E /* StudentLocationClient.swift */,
 				82B2111A1E0596E600C9189E /* StudentLocationConstants.swift */,
 				82B2111C1E05EC2E00C9189E /* StudentLocationConvenience.swift */,
@@ -170,6 +169,7 @@
 		82D6E82F1E0169B800724CB3 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				82B211161E05912A00C9189E /* StudentLocation.swift */,
 				82D6E8301E0169CA00724CB3 /* Clients */,
 			);
 			name = Model;

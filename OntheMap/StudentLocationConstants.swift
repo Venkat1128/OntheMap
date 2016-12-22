@@ -74,4 +74,10 @@ extension StudentLocationClient{
         static let MAP_ICON = "icon_pin"
         static let REFRESH_ICON = "icon_refresh"
     }
+    //MARK:- Error Messages
+    struct ErrorMessages {
+        static let NetworkErrorTitle = "Connection Error"
+        static let NetworkErrorMsg = "Network Not Reachbale!"
+        static let OntheMapError = "Eroor"
+    }
 }

@@ -52,6 +52,7 @@ struct StudentLocation {
         
         return studentLocations
     }
+
 }
 // MARK: - StudentLocation: Equatable
 
@@ -59,4 +60,21 @@ extension StudentLocation: Equatable {}
 
 func ==(lhs: StudentLocation, rhs: StudentLocation) -> Bool {
     return lhs.uniqueKey == rhs.uniqueKey
+}
+class StudentLocations : NSObject {
+    
+     var studentLocations: [StudentLocation] = [StudentLocation]()
+    // MARK: Initializers
+    
+    override init() {
+        super.init()
+    }
+    // MARK: Shared Instance
+    
+    class func sharedInstance() -> StudentLocations {
+        struct Singleton {
+            static var sharedInstance = StudentLocations()
+        }
+        return Singleton.sharedInstance
+    }
 }
