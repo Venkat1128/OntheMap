@@ -30,9 +30,9 @@ extension StudentLocationClient{
         static let PUT = "PUT"
         // MARK: Student Location
         static let StudentLocation = "/StudentLocation"
-        static let MultipleLocarions = "/limit"
+        static let MultipleLocarions = "limit=100"
         static let SingleLocation = "/uniqueKey"
-        static let UpdateLocation = "/<objectId>"
+        static let SortedLocations = "order=-updatedAt"
         
     }
     

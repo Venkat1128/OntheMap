@@ -19,7 +19,6 @@ extension StudentLocationClient{
         /* 1. Specify parameters, method (if has {key}), and HTTP body (if POST) */
         let parameters = [String:AnyObject]()
         let mutableMethod: String = Methods.StudentLocation
-        
         /* 2. Make the request */
         let _ = taskForGETMethod(mutableMethod, parameters: parameters as [String:AnyObject]) { (results, error) in
             
