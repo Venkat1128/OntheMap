@@ -8,29 +8,33 @@
 
 import UIKit
 import MapKit
-class InformationPostingViewController: UIViewController {
+class InformationPostingViewController: UIViewController , MKMapViewDelegate{
     
     var studentLocation: StudentLocation?
     var address:String?
     var coordinates:CLLocationCoordinate2D?
     var studentLocations: [StudentLocation] = [StudentLocation]()
-    var isStudentPostedAlready: Bool?
+    var isStudentPostedAlready: Bool!
     var firstName: String!
     var lastName: String!
-    
-    
+    var myActivityIndicator: UIActivityIndicatorView!
     
     @IBOutlet weak var promptLabel: UILabel!
     @IBOutlet weak var userEnteredTextView: UITextView!
     @IBOutlet weak var findTheMapButton: UIButton!
-    
     @IBOutlet weak var shareTextView: UITextView!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var submitButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        mapView.delegate = self
+        self.myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+        // Position Activity Indicator in the center of the main view
+        self.myActivityIndicator.center = view.center
+        // If needed, you can prevent Acivity Indicator from hiding when stopAnimating() is called
+        self.myActivityIndicator.hidesWhenStopped = true
+        view.addSubview(self.myActivityIndicator)
         self.shareTextView.isHidden = true
         self.mapView.isHidden = true
         self.submitButton.isHidden = true
@@ -56,10 +60,10 @@ class InformationPostingViewController: UIViewController {
     }
     //MARK:- Find on the MaP
     @IBAction func findTheMapAction(_ sender: Any) {
-        
         if userEnteredTextView.text.isEmpty  {
             showAlertMessage("Inofrmation Posting", "Please enter the address.")
         }else{
+            self.myActivityIndicator.startAnimating()
             address = userEnteredTextView.text
             let geocoder = CLGeocoder()
             
@@ -70,11 +74,10 @@ class InformationPostingViewController: UIViewController {
                 if let placemark = placemarks?.first {
                     self.coordinates = placemark.location!.coordinate
                     self.displayPinOntheMap(self.coordinates!)
+                    self.myActivityIndicator.stopAnimating()
                 }
             })
         }
-        //let address = "1 Infinite Loop, CA, USA"
-        
     }
     //MARK:- Cancel the view
     @IBAction func cancelPosting(_ sender: Any) {
@@ -93,6 +96,8 @@ class InformationPostingViewController: UIViewController {
         // Here we create the annotation and set its coordiate, title, and subtitle properties
         let annotation = MKPointAnnotation()
         annotation.coordinate = coordinates
+        let region = MKCoordinateRegionMakeWithDistance(coordinates, 2000, 2000)
+        self.mapView.setRegion(region, animated: true)
         self.mapView.addAnnotation(annotation)
     }
     //MARK:- Post the Student Location
@@ -114,6 +119,8 @@ class InformationPostingViewController: UIViewController {
                 if studentLocation.uniqueKey == appDelegate.udacityUserId {
                     isStudentPostedAlready = true
                     appDelegate.udacityUserObjectId = studentLocation.objectId
+                }else{
+                    isStudentPostedAlready = false
                 }
             }
             if isStudentPostedAlready! {
@@ -138,6 +145,29 @@ class InformationPostingViewController: UIViewController {
             }
             
         }
+    }
+    // MARK: - MKMapViewDelegate
+    
+    // Here we create a view with a "right callout accessory view". You might choose to look into other
+    // decoration alternatives. Notice the similarity between this method and the cellForRowAtIndexPath
+    // method in TableViewDataSource.
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        
+        let reuseId = "pin"
+        
+        var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
+        
+        if pinView == nil {
+            pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+            pinView!.canShowCallout = true
+            pinView!.pinTintColor = .red
+            pinView!.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+        }
+        else {
+            pinView!.annotation = annotation
+        }
+        
+        return pinView
     }
     func showAlertMessage(_ title:String, _ message:String) {
         let alertConroller = UIAlertController(title: title, message: message, preferredStyle: .alert)

@@ -24,11 +24,11 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var udacityLogoImageView: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+        self.myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
         // Position Activity Indicator in the center of the main view
-        myActivityIndicator.center = view.center
+        self.myActivityIndicator.center = view.center
         // If needed, you can prevent Acivity Indicator from hiding when stopAnimating() is called
-        myActivityIndicator.hidesWhenStopped = true
+        self.myActivityIndicator.hidesWhenStopped = true
         configureUI()
         // Do any additional setup after loading the view.
         loginButton.backgroundColor = UdacityClient.UI.LoginButtonColor
@@ -61,8 +61,9 @@ class LoginViewController: UIViewController {
                 
                 setUIEnabled(false)
                 // Start Activity Indicator
-                myActivityIndicator.startAnimating()
-                view.addSubview(myActivityIndicator)
+                view.addSubview(self.myActivityIndicator)
+
+                self.myActivityIndicator.startAnimating()
                 let jsonBody = "{\"udacity\": {\"\(UdacityClient.UdacityConstans.UdacityParameterKeys.Username)\": \"\(usernameTextField.text!)\", \"\(UdacityClient.UdacityConstans.UdacityParameterKeys.Password)\": \"\(passwordTextField.text!)\"}}"
                 let _ =  UdacityClient.sharedInstance().taskForPOSTMethod(UdacityClient.UdacityConstans.UdacityResponseKeys.Session, jsonBody: jsonBody){
                     (results, error) in
