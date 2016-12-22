@@ -8,7 +8,7 @@
 
 import UIKit
 import MapKit
-class InformationPostingViewController: UIViewController , MKMapViewDelegate{
+class InformationPostingViewController: UIViewController , MKMapViewDelegate ,UITextViewDelegate{
     
     var studentLocation: StudentLocation?
     var address:String?
@@ -29,6 +29,8 @@ class InformationPostingViewController: UIViewController , MKMapViewDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.delegate = self
+        userEnteredTextView.delegate = self
+        shareTextView.delegate = self
         self.myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
         // Position Activity Indicator in the center of the main view
         self.myActivityIndicator.center = view.center
@@ -44,7 +46,18 @@ class InformationPostingViewController: UIViewController , MKMapViewDelegate{
         fetchUdacityUserProfile()
     }
     
-    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool
+    {
+        if(text == "\n")
+        {
+            view.endEditing(true)
+            return false
+        }
+        else
+        {
+            return true
+        }
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -105,6 +118,7 @@ class InformationPostingViewController: UIViewController , MKMapViewDelegate{
         if shareTextView.text.isEmpty {
             showAlertMessage("Inofrmation Posting", "Please enter the share Link")
         }else{
+            self.myActivityIndicator.startAnimating()
             let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
             self.studentLocation = StudentLocation.init(dictionary: [:])
             self.studentLocation!.firstName = self.firstName
@@ -125,6 +139,7 @@ class InformationPostingViewController: UIViewController , MKMapViewDelegate{
             }
             if isStudentPostedAlready! {
                 StudentLocationClient.sharedInstance().updateToStudentLocation(self.studentLocation!){ (objectId, error) in
+                    self.myActivityIndicator.stopAnimating()
                     /* GUARD: Was there an error? */
                     guard (error == nil) else {
                         self.showAlertMessage(UdacityClient.UdacityConstans.ErrorMessages.InformationPosting, "\(error!.userInfo[NSLocalizedDescriptionKey] as! String)")
@@ -135,6 +150,7 @@ class InformationPostingViewController: UIViewController , MKMapViewDelegate{
                 }
             }else{
                 StudentLocationClient.sharedInstance().postToStudentLocation(self.studentLocation!){ (updatedAt, error) in
+                     self.myActivityIndicator.stopAnimating()
                     /* GUARD: Was there an error? */
                     guard (error == nil) else {
                         self.showAlertMessage(UdacityClient.UdacityConstans.ErrorMessages.InformationPosting, "\(error!.userInfo[NSLocalizedDescriptionKey] as! String)")
@@ -176,4 +192,6 @@ class InformationPostingViewController: UIViewController , MKMapViewDelegate{
         })
         self.present(alertConroller, animated: true, completion: nil)
     }
+    // MARK:- Textview delegate
+   
 }

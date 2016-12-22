@@ -339,7 +339,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5N6-IS-HGd" id="wMw-zy-I5a">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -360,7 +360,7 @@
             <objects>
                 <navigationController storyboardIdentifier="InofrmationNavView" automaticallyAdjustsScrollViewInsets="NO" id="PW5-t8-y2L" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="iVV-N1-08K">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="iVV-N1-08K">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
