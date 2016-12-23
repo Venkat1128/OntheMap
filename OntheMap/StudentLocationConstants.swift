@@ -78,6 +78,6 @@ extension StudentLocationClient{
     struct ErrorMessages {
         static let NetworkErrorTitle = "Connection Error"
         static let NetworkErrorMsg = "Network Not Reachbale!"
-        static let OntheMapError = "Eroor"
+        static let OntheMapError = "Error"
     }
 }

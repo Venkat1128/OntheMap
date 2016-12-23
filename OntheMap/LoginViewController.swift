@@ -37,17 +37,11 @@ class LoginViewController: UIViewController {
         loginButton.backingColor =  UdacityClient.UI.LoginButtonColor
         // get the app delegate
         appDelegate = UIApplication.shared.delegate as! AppDelegate
-        
-        subscribeToNotification(.UIKeyboardWillShow, selector: #selector(keyboardWillShow))
-        subscribeToNotification(.UIKeyboardWillHide, selector: #selector(keyboardWillHide))
-        subscribeToNotification(.UIKeyboardDidShow, selector: #selector(keyboardDidShow))
-        subscribeToNotification(.UIKeyboardDidHide, selector: #selector(keyboardDidHide))
         passwordTextField.isSecureTextEntry = true
         
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        unsubscribeFromAllNotifications()
     }
     //MARK:- Login Pressed
     @IBAction func loginPressed(_ sender: Any) {
@@ -185,34 +179,6 @@ extension LoginViewController: UITextFieldDelegate {
     
     // MARK: Show/Hide Keyboard
     
-    func keyboardWillShow(_ notification: Notification) {
-        if !keyboardOnScreen {
-            view.frame.origin.y -= keyboardHeight(notification)
-            udacityLogoImageView.isHidden = true
-        }
-    }
-    
-    func keyboardWillHide(_ notification: Notification) {
-        if keyboardOnScreen {
-            view.frame.origin.y += keyboardHeight(notification)
-            udacityLogoImageView.isHidden = false
-        }
-    }
-    
-    func keyboardDidShow(_ notification: Notification) {
-        keyboardOnScreen = true
-    }
-    
-    func keyboardDidHide(_ notification: Notification) {
-        keyboardOnScreen = false
-    }
-    
-    private func keyboardHeight(_ notification: Notification) -> CGFloat {
-        let userInfo = (notification as NSNotification).userInfo
-        let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue
-        return keyboardSize.cgRectValue.height
-    }
-    
     private func resignIfFirstResponder(_ textField: UITextField) {
         if textField.isFirstResponder {
             textField.resignFirstResponder()
@@ -223,18 +189,36 @@ extension LoginViewController: UITextFieldDelegate {
         resignIfFirstResponder(usernameTextField)
         resignIfFirstResponder(passwordTextField)
     }
-}
-
-
-// MARK: - LoginViewController (Notifications)
-
-private extension LoginViewController {
     
-    func subscribeToNotification(_ notification: NSNotification.Name, selector: Selector) {
-        NotificationCenter.default.addObserver(self, selector: selector, name: notification, object: nil)
+    func animateTextField(textField: UITextField, up: Bool)
+    {
+        let movementDistance:CGFloat = -130
+        let movementDuration: Double = 0.3
+        
+        var movement:CGFloat = 0
+        if up
+        {
+            movement = movementDistance
+        }
+        else
+        {
+            movement = -movementDistance
+        }
+        UIView.beginAnimations("animateTextField", context: nil)
+        UIView.setAnimationBeginsFromCurrentState(true)
+        UIView.setAnimationDuration(movementDuration)
+        self.view.frame = self.view.frame.offsetBy(dx: 0, dy: movement)
+        UIView.commitAnimations()
     }
     
-    func unsubscribeFromAllNotifications() {
-        NotificationCenter.default.removeObserver(self)
+    
+    func textFieldDidBeginEditing(_ textField: UITextField)
+    {
+        self.animateTextField(textField: textField, up:true)
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField)
+    {
+        self.animateTextField(textField: textField, up:false)
     }
 }

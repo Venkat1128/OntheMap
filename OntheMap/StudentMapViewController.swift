@@ -57,8 +57,8 @@ class StudentMapViewController: UIViewController, MKMapViewDelegate{
                     self.view.setNeedsDisplay()
                 }
             }
-            else {
-                self.showAlertMessage(StudentLocationClient.ErrorMessages.OntheMapError, (error?.description)!)
+            else{
+                self.showAlertMessage(StudentLocationClient.ErrorMessages.OntheMapError, "\(error!.userInfo[NSLocalizedDescriptionKey] as! String)")
             }
         }
     }
