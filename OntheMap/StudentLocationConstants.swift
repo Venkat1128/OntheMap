@@ -31,9 +31,6 @@ extension StudentLocationClient{
         // MARK: Student Location
         static let StudentLocation = "/StudentLocation"
         static let MultipleLocarions = "limit=100"
-        static let SingleLocation = "/uniqueKey"
-        static let SortedLocations = "order=-updatedAt"
-        
     }
     
     // MARK: URL Keys
@@ -46,6 +43,8 @@ extension StudentLocationClient{
     struct ParameterKeys {
         static let ParseApplicationId = "X-Parse-Application-Id"
         static let ParseRESTAPIKey = "X-Parse-REST-API-Key"
+        static let Order = "order"
+        static let LocationUpdatedAt = "-updatedAt"
     }
     
     // MARK: JSON Body Keys

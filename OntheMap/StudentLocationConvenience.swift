@@ -17,8 +17,9 @@ extension StudentLocationClient{
     func getStudentLocations(_ completionHandlerForStudentLocations: @escaping (_ result: [StudentLocation]?, _ error: NSError?) -> Void) {
         
         /* 1. Specify parameters, method (if has {key}), and HTTP body (if POST) */
-        let parameters = [String:AnyObject]()
+        let parameters = [StudentLocationClient.ParameterKeys.Order:StudentLocationClient.ParameterKeys.LocationUpdatedAt]
         let mutableMethod: String = Methods.StudentLocation
+        
         /* 2. Make the request */
         let _ = taskForGETMethod(mutableMethod, parameters: parameters as [String:AnyObject]) { (results, error) in
             
@@ -64,7 +65,7 @@ extension StudentLocationClient{
     func updateToStudentLocation(_ studentLocation: StudentLocation, completionHandlerForStudentLocation: @escaping (_ result: String?, _ error: NSError?) -> Void) {
         let appDelegate: AppDelegate! = UIApplication.shared.delegate as! AppDelegate!
         /* 1. Specify parameters, method (if has {key}), and HTTP body (if POST) */
-        let parameters = [String:AnyObject]()//[JSONResponseKeys.ObjectId : appDelegate.udacityUserObjectId!]
+        let parameters = [String:AnyObject]()
         let mutableMethod: String = Methods.StudentLocation + "/" + appDelegate.udacityUserObjectId!
         
         /* 2. Make the request */
