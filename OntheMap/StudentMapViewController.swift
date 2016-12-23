@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 class StudentMapViewController: UIViewController, MKMapViewDelegate{
-
+    
     // The map. See the setup in the Storyboard file. Note particularly that the view controller
     // is set up as the map view's delegate.
     @IBOutlet weak var mapView: MKMapView!
@@ -17,7 +17,7 @@ class StudentMapViewController: UIViewController, MKMapViewDelegate{
     var annotations = [MKPointAnnotation]()
     var myActivityIndicator: UIActivityIndicatorView!
     var studentLocationModel: StudentLocations!
-
+    
     // MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +29,7 @@ class StudentMapViewController: UIViewController, MKMapViewDelegate{
         myActivityIndicator.center = view.center
         // If needed, you can prevent Acivity Indicator from hiding when stopAnimating() is called
         myActivityIndicator.hidesWhenStopped = true
-         parent!.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(logout))
+        parent!.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(logout))
         let mapImage   = UIImage(named: StudentLocationClient.NavIcons.MAP_ICON)!
         let refreshImage = UIImage(named: StudentLocationClient.NavIcons.REFRESH_ICON)!
         let mapButton   = UIBarButtonItem(image: mapImage,  style: .plain, target: self, action: #selector(StudentMapViewController.postLocation(_:)))
@@ -45,21 +45,25 @@ class StudentMapViewController: UIViewController, MKMapViewDelegate{
     
     //MARK:- Get Student Locations
     func getStudentLocations(){
-        StudentLocationClient.sharedInstance().getStudentLocations{ (studentLocations, error) in
-            if let studentLocations = studentLocations {
-                self.studentLocationModel.studentLocations = studentLocations
-                 self.addAnnotations()
-                performUIUpdatesOnMain {
-                    // When the array is complete, we add the annotations to the map.
-                    if (self.annotations.count > 0){
-                        self.mapView.addAnnotations(self.annotations)
+        if(UdacityClient.sharedInstance().isConnectedToNetwork()) {
+            StudentLocationClient.sharedInstance().getStudentLocations{ (studentLocations, error) in
+                if let studentLocations = studentLocations {
+                    self.studentLocationModel.studentLocations = studentLocations
+                    self.addAnnotations()
+                    performUIUpdatesOnMain {
+                        // When the array is complete, we add the annotations to the map.
+                        if (self.annotations.count > 0){
+                            self.mapView.addAnnotations(self.annotations)
+                        }
+                        self.view.setNeedsDisplay()
                     }
-                    self.view.setNeedsDisplay()
+                }
+                else{
+                    self.showAlertMessage(StudentLocationClient.ErrorMessages.OntheMapError, "\(error!.userInfo[NSLocalizedDescriptionKey] as! String)")
                 }
             }
-            else{
-                self.showAlertMessage(StudentLocationClient.ErrorMessages.OntheMapError, "\(error!.userInfo[NSLocalizedDescriptionKey] as! String)")
-            }
+        }else{
+            self.showAlertMessage(UdacityClient.UdacityConstans.ErrorMessages.NetworkErrorTitle, UdacityClient.UdacityConstans.ErrorMessages.NetworkErrorMsg)
         }
     }
     //MARK:- Add Annotations to Mapview
@@ -95,10 +99,10 @@ class StudentMapViewController: UIViewController, MKMapViewDelegate{
                 }
                 
             }
-           
+            
         }
     }
-
+    
     // MARK: - MKMapViewDelegate
     
     // Here we create a view with a "right callout accessory view". You might choose to look into other
@@ -141,10 +145,14 @@ class StudentMapViewController: UIViewController, MKMapViewDelegate{
     }
     //MARK:- Logout
     func logout() {
-        myActivityIndicator.startAnimating()
+        DispatchQueue.main.async{
+            self.myActivityIndicator.startAnimating()
+        }
         view.addSubview(myActivityIndicator)
         UdacityClient.sharedInstance().deleteUdacitySession{ (session, error) in
-            self.myActivityIndicator.stopAnimating()
+            DispatchQueue.main.async{
+                self.myActivityIndicator.stopAnimating()
+            }
             if  error == nil {
                 self.dismiss(animated: true, completion: nil)
             }

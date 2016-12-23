@@ -54,12 +54,16 @@ class LoginViewController: UIViewController {
                 
                 setUIEnabled(false)
                 // Start Activity Indicator
-                self.myActivityIndicator.startAnimating()
+                DispatchQueue.main.async{
+                    self.myActivityIndicator.startAnimating()
+                }
                 let jsonBody = "{\"udacity\": {\"\(UdacityClient.UdacityConstans.UdacityParameterKeys.Username)\": \"\(usernameTextField.text!)\", \"\(UdacityClient.UdacityConstans.UdacityParameterKeys.Password)\": \"\(passwordTextField.text!)\"}}"
                 let _ =  UdacityClient.sharedInstance().taskForPOSTMethod(UdacityClient.UdacityConstans.UdacityResponseKeys.Session, jsonBody: jsonBody){
                     (results, error) in
                     //Stop Animation
-                    self.myActivityIndicator.stopAnimating()
+                    DispatchQueue.main.async{
+                        self.myActivityIndicator.stopAnimating()
+                    }
                     /* GUARD: Was there an error? */
                     guard (error == nil) else {
                         self.setUIEnabled(true)

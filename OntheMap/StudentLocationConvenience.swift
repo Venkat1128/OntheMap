@@ -23,8 +23,8 @@ extension StudentLocationClient{
         let _ = taskForGETMethod(mutableMethod, parameters: parameters as [String:AnyObject]) { (results, error) in
             
             /* 3. Send the desired value(s) to completion handler */
-            if let error = error {
-                completionHandlerForStudentLocations(nil, error)
+            if error != nil {
+                completionHandlerForStudentLocations(nil, NSError(domain: "getStudentLocations", code: 0, userInfo: [NSLocalizedDescriptionKey: StudentLocationClient.ErrorMessages.UnabletoDownalodLocation]))
             } else {
                 
                 if let results = results?[StudentLocationClient.JSONResponseKeys.StudentLocationsResults] as? [[String:AnyObject]] {
@@ -49,8 +49,8 @@ extension StudentLocationClient{
         let _ = taskForPOSTMethod(mutableMethod, parameters: parameters as [String:AnyObject], jsonBody: getJSONBodyForStudentLocation(studentLocation)) { (results, error) in
             
             /* 3. Send the desired value(s) to completion handler */
-            if let error = error {
-                completionHandlerForStudentLocation(nil, error)
+            if error != nil {
+                   completionHandlerForStudentLocation(nil, NSError(domain: "getStudentLocations", code: 0, userInfo: [NSLocalizedDescriptionKey: StudentLocationClient.ErrorMessages.UnabletoPostLocation]))
             } else {
                 if let results = results?[StudentLocationClient.JSONResponseKeys.ObjectId] as? String {
                     completionHandlerForStudentLocation(results, nil)

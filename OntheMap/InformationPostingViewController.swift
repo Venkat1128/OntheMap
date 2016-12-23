@@ -67,7 +67,7 @@ class InformationPostingViewController: UIViewController , MKMapViewDelegate ,UI
     func fetchUdacityUserProfile() {
         UdacityClient.sharedInstance().getPublicUserData{ (user, error) in
             if  error == nil {
-
+                
                 self.firstName = user?.first_name!
                 self.lastName = user?.last_name!
             }
@@ -78,18 +78,22 @@ class InformationPostingViewController: UIViewController , MKMapViewDelegate ,UI
         if userEnteredTextView.text.isEmpty  {
             showAlertMessage("Inofrmation Posting", "Please enter the address.")
         }else{
-            self.myActivityIndicator.startAnimating()
+            DispatchQueue.main.async{
+                self.myActivityIndicator.startAnimating()
+            }
             address = userEnteredTextView.text
             let geocoder = CLGeocoder()
             
             geocoder.geocodeAddressString(address!, completionHandler: {(placemarks, error) -> Void in
+                DispatchQueue.main.async{
+                    self.myActivityIndicator.stopAnimating()
+                }
                 if((error) != nil){
-                    self.showAlertMessage("Error", (error?.localizedDescription)!)
+                    self.showAlertMessage(StudentLocationClient.ErrorMessages.OntheMapError, StudentLocationClient.ErrorMessages.UnabletoFindtheMap)
                 }
                 if let placemark = placemarks?.first {
                     self.coordinates = placemark.location!.coordinate
                     self.displayPinOntheMap(self.coordinates!)
-                    self.myActivityIndicator.stopAnimating()
                 }
             })
         }
@@ -120,48 +124,58 @@ class InformationPostingViewController: UIViewController , MKMapViewDelegate ,UI
         if shareTextView.text.isEmpty {
             showAlertMessage("Inofrmation Posting", "Please enter the share Link")
         }else{
-            self.myActivityIndicator.startAnimating()
-            let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
-            self.studentLocation = StudentLocation.init(dictionary: [:])
-            self.studentLocation!.firstName = self.firstName
-            self.studentLocation!.lastName = self.lastName
-            self.studentLocation!.mapString = address
-            self.studentLocation!.latitude = coordinates?.latitude
-            self.studentLocation!.longitude = coordinates?.longitude
-            self.studentLocation!.mediaURL = self.shareTextView.text
-            for studentLocation in self.studentLocationModel.studentLocations{
-                //Check for student is alreayd posted or not?
-                if studentLocation.uniqueKey == appDelegate.udacityUserId {
-                    isStudentPostedAlready = true
-                    appDelegate.udacityUserObjectId = studentLocation.objectId
-                    break
+            if(UdacityClient.sharedInstance().isConnectedToNetwork()) {
+                DispatchQueue.main.async{
+                    self.myActivityIndicator.startAnimating()
+                }
+                let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+                self.studentLocation = StudentLocation.init(dictionary: [:])
+                self.studentLocation!.firstName = self.firstName
+                self.studentLocation!.lastName = self.lastName
+                self.studentLocation!.mapString = address
+                self.studentLocation!.latitude = coordinates?.latitude
+                self.studentLocation!.longitude = coordinates?.longitude
+                self.studentLocation!.mediaURL = self.shareTextView.text
+                for studentLocation in self.studentLocationModel.studentLocations{
+                    //Check for student is alreayd posted or not?
+                    if studentLocation.uniqueKey == appDelegate.udacityUserId {
+                        isStudentPostedAlready = true
+                        appDelegate.udacityUserObjectId = studentLocation.objectId
+                        break
+                    }else{
+                        isStudentPostedAlready = false
+                    }
+                }
+                if isStudentPostedAlready! {
+                    StudentLocationClient.sharedInstance().updateToStudentLocation(self.studentLocation!){ (objectId, error) in
+                        DispatchQueue.main.async{
+                            self.myActivityIndicator.stopAnimating()
+                        }
+                        /* GUARD: Was there an error? */
+                        guard (error == nil) else {
+                            self.showAlertMessage(UdacityClient.UdacityConstans.ErrorMessages.InformationPosting, "\(error!.userInfo[NSLocalizedDescriptionKey] as! String)")
+                            return
+                        }
+                        self.dismiss(animated: true, completion: nil)
+                        
+                    }
                 }else{
-                    isStudentPostedAlready = false
-                }
-            }
-            if isStudentPostedAlready! {
-                StudentLocationClient.sharedInstance().updateToStudentLocation(self.studentLocation!){ (objectId, error) in
-                    self.myActivityIndicator.stopAnimating()
-                    /* GUARD: Was there an error? */
-                    guard (error == nil) else {
-                        self.showAlertMessage(UdacityClient.UdacityConstans.ErrorMessages.InformationPosting, "\(error!.userInfo[NSLocalizedDescriptionKey] as! String)")
-                        return
+                    StudentLocationClient.sharedInstance().postToStudentLocation(self.studentLocation!){ (updatedAt, error) in
+                        DispatchQueue.main.async{
+                            self.myActivityIndicator.stopAnimating()
+                        }
+                        /* GUARD: Was there an error? */
+                        guard (error == nil) else {
+                            self.showAlertMessage(UdacityClient.UdacityConstans.ErrorMessages.InformationPosting, "\(error!.userInfo[NSLocalizedDescriptionKey] as! String)")
+                            return
+                        }
+                        self.dismiss(animated: true, completion: nil)
                     }
-                    self.dismiss(animated: true, completion: nil)
-
                 }
+                
             }else{
-                StudentLocationClient.sharedInstance().postToStudentLocation(self.studentLocation!){ (updatedAt, error) in
-                     self.myActivityIndicator.stopAnimating()
-                    /* GUARD: Was there an error? */
-                    guard (error == nil) else {
-                        self.showAlertMessage(UdacityClient.UdacityConstans.ErrorMessages.InformationPosting, "\(error!.userInfo[NSLocalizedDescriptionKey] as! String)")
-                        return
-                    }
-                    self.dismiss(animated: true, completion: nil)
-                }
+                self.showAlertMessage(UdacityClient.UdacityConstans.ErrorMessages.NetworkErrorTitle, UdacityClient.UdacityConstans.ErrorMessages.NetworkErrorMsg)
             }
-            
         }
     }
     // MARK: - MKMapViewDelegate
@@ -195,5 +209,5 @@ class InformationPostingViewController: UIViewController , MKMapViewDelegate ,UI
         self.present(alertConroller, animated: true, completion: nil)
     }
     // MARK:- Textview delegate
-   
+    
 }

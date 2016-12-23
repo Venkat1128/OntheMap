@@ -79,5 +79,8 @@ extension StudentLocationClient{
         static let NetworkErrorTitle = "Connection Error"
         static let NetworkErrorMsg = "Network Not Reachbale!"
         static let OntheMapError = "Error"
+        static let UnabletoDownalodLocation = "Unable to download student locations\n Please try again"
+        static let UnabletoPostLocation = "Unable to post the location\n Please try again"
+        static let UnabletoFindtheMap = "Unable to find location on the Map\n, Please try again"
     }
 }

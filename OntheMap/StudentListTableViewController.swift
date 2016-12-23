@@ -38,17 +38,21 @@ class StudentListTableViewController: UITableViewController {
     
     //MARK:- Get Student Locations
     func getStudentLocationsList(){
-        StudentLocationClient.sharedInstance().getStudentLocations{ (studentLocations, error) in
-            if let studentLocations = studentLocations {
-                self.studentLocationModel.studentLocations = studentLocations
-                performUIUpdatesOnMain {
-                    // When the array is complete, we add the annotations to the map.
-                    self.tableView.reloadData()
+        if(UdacityClient.sharedInstance().isConnectedToNetwork()) {
+            StudentLocationClient.sharedInstance().getStudentLocations{ (studentLocations, error) in
+                if let studentLocations = studentLocations {
+                    self.studentLocationModel.studentLocations = studentLocations
+                    performUIUpdatesOnMain {
+                        // When the array is complete, we add the annotations to the map.
+                        self.tableView.reloadData()
+                    }
+                }
+                else {
+                    self.showAlertMessage(StudentLocationClient.ErrorMessages.OntheMapError, "\(error!.userInfo[NSLocalizedDescriptionKey] as! String)")
                 }
             }
-            else {
-                print(error!)
-            }
+        }else{
+            self.showAlertMessage(UdacityClient.UdacityConstans.ErrorMessages.NetworkErrorTitle, UdacityClient.UdacityConstans.ErrorMessages.NetworkErrorMsg)
         }
     }
     override func didReceiveMemoryWarning() {
@@ -95,12 +99,19 @@ class StudentListTableViewController: UITableViewController {
             }
         }
     }
+    override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        _ = self.studentLocationModel.studentLocations[indexPath.row]
+    }
     //MARK:- Logout
     func logout() {
-        myActivityIndicator.startAnimating()
+        DispatchQueue.main.async{
+            self.myActivityIndicator.startAnimating()
+        }
         view.addSubview(myActivityIndicator)
         UdacityClient.sharedInstance().deleteUdacitySession{ (session, error) in
-            self.myActivityIndicator.stopAnimating()
+            DispatchQueue.main.async{
+                self.myActivityIndicator.stopAnimating()
+            }
             if  error == nil {
                 self.dismiss(animated: true, completion: nil)
             }
